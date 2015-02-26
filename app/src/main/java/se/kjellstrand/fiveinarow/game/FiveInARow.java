@@ -10,7 +10,7 @@ public class FiveInARow {
     private AbstractPlayer p1;
     private AbstractPlayer p2;
 
-    private AbstractPlayer lastPlayer;
+    private AbstractPlayer currentPlayer;
 
     private Board b;
 
@@ -18,22 +18,22 @@ public class FiveInARow {
         b = _b;
         p1 = _p1;
         p2 = _p2;
-        lastPlayer = p1;
+        currentPlayer = p1;
     }
 
     public AbstractPlayer advanceGame() {
-        Move move = lastPlayer.getNextMove(b);
-        int state = b.makeMove(move, lastPlayer);
+        Move move = currentPlayer.getNextMove(b);
+        int state = b.makeMove(move, currentPlayer);
 
         if (state == BoardState.WIN) {
             Log.d(TAG, "winning move, x:" + move.x + " y: " + move.y);
-            return lastPlayer;
+            return currentPlayer;
         }
 
-        if (lastPlayer != p1) {
-            lastPlayer = p1;
+        if (currentPlayer != p1) {
+            currentPlayer = p1;
         } else {
-            lastPlayer = p2;
+            currentPlayer = p2;
         }
         return null;
     }

@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Log.d(TAG, "Winner is : " + winner.playerNumber);
-
+    finish();
     }
 
 }
