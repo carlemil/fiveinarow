@@ -44,8 +44,8 @@ public class Board {
         int cxy = 0;
         int cyx = 0;
         for (int i = -4; i <= 4; i++) {
-            cx = (m.x - i > 0 && m.x + i < width && p == board[i][m.y]) ? (cx + 1) : 0;
-            cy = (m.y - i > 0 && m.y + i < height && p == board[m.y][i]) ? (cy + 1) : 0;
+            cx = (m.x + i > 0 && m.x + i < width && p == board[m.x + i][m.y]) ? (cx + 1) : 0;
+            cy = (m.y + i > 0 && m.y + i < height && p == board[m.x][m.y + i]) ? (cy + 1) : 0;
             //cxy = p == board[i][m.y] ? (cx+1): 0;
             //cyx = p == board[i][m.y] ? (cx+1): 0;
             if (cx >= 5 || cy >= 5 || cxy >= 5 || cyx >= 5) {
