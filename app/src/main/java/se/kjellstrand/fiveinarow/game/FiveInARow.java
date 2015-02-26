@@ -4,32 +4,38 @@ package se.kjellstrand.fiveinarow.game;
  * Created by carlemil on 2015-02-25.
  */
 public class FiveInARow {
-    AbstractPlayer p1;
-    AbstractPlayer p2;
+    private AbstractPlayer p1;
+    private AbstractPlayer p2;
 
-    AbstractPlayer lastPlayer;
+    private AbstractPlayer lastPlayer;
 
-    Board b;
+    private Board b;
 
     public FiveInARow(Board _b, AbstractPlayer _p1, AbstractPlayer _p2) {
         b = _b;
         p1 = _p1;
         p2 = _p2;
+        lastPlayer = p1;
     }
 
-    public BoardState advanceGame() {
-        Move move = null;
-
+    public AbstractPlayer advanceGame() {
+        AbstractPlayer player;
         if (lastPlayer == null || lastPlayer != p1) {
-            move = p1.getNextMove(b);
+            player = p1;
         } else {
-            move = p2.getNextMove(b);
+            player = p2;
         }
 
-        b.makeMove(move);
-        
-        BoardState gameState = b.getState();
+        Move move = player.getNextMove(b);
+        int state = b.makeMove(move, player);
 
-        return gameState;
+        if (state == BoardState.WIN) {
+            return player;
+        }
+        return null;
+    }
+
+    public void printBoard() {
+        b.print();
     }
 }

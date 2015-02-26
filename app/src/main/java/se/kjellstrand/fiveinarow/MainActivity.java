@@ -1,39 +1,41 @@
 package se.kjellstrand.fiveinarow;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+
+import se.kjellstrand.fiveinarow.game.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game.Board;
+import se.kjellstrand.fiveinarow.game.FiveInARow;
+import se.kjellstrand.fiveinarow.game.RandomPlayer;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final int BOARD_WIDTH = 10;
+    private static final int BOARD_HEIGHT = 10;
+    private static final String TAG = MainActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+
+        Board b = new Board(BOARD_WIDTH, BOARD_HEIGHT);
+        AbstractPlayer p1 = new RandomPlayer();
+        AbstractPlayer p2 = new RandomPlayer();
+
+        FiveInARow fir = new FiveInARow(b, p1, p2);
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        AbstractPlayer winner = null;
+        while (winner == null) {
+            winner = fir.advanceGame();
+            fir.printBoard();
         }
 
-        return super.onOptionsItemSelected(item);
+        Log.d(TAG, "Winner is : " + winner.playerNumber);
+
     }
+
 }
