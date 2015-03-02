@@ -31,11 +31,12 @@ public class MainActivity extends ActionBarActivity {
         AbstractPlayer winner = null;
         while (winner == null) {
             winner = fir.advanceGame();
-            fir.printBoard();
         }
+        fir.printBoard();
 
         Log.d(TAG, "Winner is : " + winner.playerNumber);
-    finish();
+
+        finish();
     }
 
 }
