@@ -14,8 +14,8 @@ import se.kjellstrand.fiveinarow.game.RandomPlayer;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final int BOARD_WIDTH = 10;
-    private static final int BOARD_HEIGHT = 10;
+    private static final int BOARD_WIDTH = 7;
+    private static final int BOARD_HEIGHT = 7;
     private static final String TAG = MainActivity.class.getCanonicalName();
 
     @Override

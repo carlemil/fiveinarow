@@ -1,5 +1,7 @@
 package se.kjellstrand.fiveinarow.game;
 
+import android.util.Log;
+
 /**
  * Created by carlemil on 2015-02-25.
  */
@@ -41,6 +43,7 @@ public class FiveInARow {
         } else {
             state = GameState.LOSS;
         }
+        Log.d(TAG, "move: " + move);
         return state;
     }
 

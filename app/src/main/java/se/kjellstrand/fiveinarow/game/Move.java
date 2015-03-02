@@ -16,4 +16,9 @@ public class Move {
         x = -1;
         y = -1;
     }
+
+    @Override
+    public String toString() {
+        return "X: " + x + ", y: " + y;
+    }
 }
