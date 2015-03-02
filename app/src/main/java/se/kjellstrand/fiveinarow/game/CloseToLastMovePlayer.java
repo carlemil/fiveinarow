@@ -17,8 +17,8 @@ public class CloseToLastMovePlayer extends AbstractPlayer {
                 move.y = lastMove.y + (int) ((Math.random() - 0.5f) * 4);
             } while (!board.isMoveLegal(move) && attempt++ < 100);
         } else {
-            move.x = 5;
-            move.y = 5;
+            move.x = 0;
+            move.y = 0;
         }
         lastMove.x = move.x;
         lastMove.y = move.y;
