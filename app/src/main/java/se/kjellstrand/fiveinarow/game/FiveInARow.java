@@ -1,18 +1,18 @@
 package se.kjellstrand.fiveinarow.game;
 
-import android.util.Log;
-
 /**
  * Created by carlemil on 2015-02-25.
  */
 public class FiveInARow {
+
     private static final String TAG = FiveInARow.class.getCanonicalName();
-    private AbstractPlayer p1;
-    private AbstractPlayer p2;
+
+    private final AbstractPlayer p1;
+    private final AbstractPlayer p2;
+
+    private final Board b;
 
     private AbstractPlayer currentPlayer;
-
-    private Board b;
 
     public FiveInARow(Board _b, AbstractPlayer _p1, AbstractPlayer _p2) {
         b = _b;
@@ -21,21 +21,27 @@ public class FiveInARow {
         currentPlayer = p1;
     }
 
-    public AbstractPlayer advanceGame() {
+    public AbstractPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public GameState advanceGame() {
+        GameState state;
         Move move = currentPlayer.getNextMove(b);
-        int state = b.makeMove(move, currentPlayer);
-
-        if (state == BoardState.WIN) {
-            Log.d(TAG, "winning move, x:" + move.x + " y: " + move.y);
-            return currentPlayer;
-        }
-
-        if (currentPlayer != p1) {
-            currentPlayer = p1;
+        boolean moveLegal = b.isMoveLegal(move);
+        if (moveLegal) {
+            state = b.makeMove(move, currentPlayer);
+            if (state == GameState.UNDEFINED) {
+                if (currentPlayer != p1) {
+                    currentPlayer = p1;
+                } else {
+                    currentPlayer = p2;
+                }
+            }
         } else {
-            currentPlayer = p2;
+            state = GameState.LOSS;
         }
-        return null;
+        return state;
     }
 
     public void printBoard() {

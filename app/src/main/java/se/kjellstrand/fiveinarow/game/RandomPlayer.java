@@ -7,9 +7,11 @@ public class RandomPlayer extends AbstractPlayer {
     @Override
     public Move getNextMove(Board board) {
         Move move = new Move();
-
-        move.x = (int) (Math.random() * board.getWidth());
-        move.y = (int) (Math.random() * board.getHeight());
+        int attempt = 0;
+        do {
+            move.x = (int) (Math.random() * board.getWidth());
+            move.y = (int) (Math.random() * board.getHeight());
+        } while (!board.isMoveLegal(move) && attempt++ < 100);
 
         return move;
     }
