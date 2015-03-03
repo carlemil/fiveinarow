@@ -7,18 +7,16 @@ public class FiveInARow {
 
     private static final String TAG = "FiveInARow";
 
-    private final AbstractPlayer p1;
-    private final AbstractPlayer p2;
-
     private final Board b;
 
     private AbstractPlayer currentPlayer;
 
-    public FiveInARow(Board _b, AbstractPlayer _p1, AbstractPlayer _p2) {
+    public FiveInARow(Board _b) throws Exception {
         b = _b;
-        p1 = _p1;
-        p2 = _p2;
-        currentPlayer = p1;
+        currentPlayer = b.getP1();
+        if (b.getP1().equals(b.getP2())) {
+            throw new Exception("A player can not play itself.");
+        }
     }
 
     public AbstractPlayer playTheGame() {
@@ -28,10 +26,10 @@ public class FiveInARow {
         }
 
         if (state == GameState.LOSS) {
-            if (currentPlayer == p1) {
-                return p2;
+            if (currentPlayer == b.getP1()) {
+                return b.getP2();
             } else {
-                return p1;
+                return b.getP1();
             }
         }
         return currentPlayer;
@@ -45,10 +43,10 @@ public class FiveInARow {
         if (moveLegal) {
             state = b.makeMove(move, currentPlayer);
             if (state == GameState.UNDEFINED) {
-                if (currentPlayer != p1) {
-                    currentPlayer = p1;
+                if (currentPlayer != b.getP1()) {
+                    currentPlayer = b.getP1();
                 } else {
-                    currentPlayer = p2;
+                    currentPlayer = b.getP2();
                 }
             }
         } else {

@@ -9,13 +9,16 @@ public class Board {
     private static final String TAG = Board.class.getCanonicalName();
     private int width;
     private int height;
-
+    private AbstractPlayer p1;
+    private AbstractPlayer p2;
     private int[][] board = null;
 
-    public Board(int _width, int _height) {
+    public Board(int _width, int _height, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = _width;
         height = _height;
         board = new int[width][height];
+        p1 = _p1;
+        p2 = _p2;
     }
 
     public int getWidth() {
@@ -84,5 +87,13 @@ public class Board {
             sb.append("\n");
         }
         Log.d(TAG, "Board\n" + sb.toString());
+    }
+
+    public AbstractPlayer getP1() {
+        return p1;
+    }
+
+    public AbstractPlayer getP2() {
+        return p2;
     }
 }

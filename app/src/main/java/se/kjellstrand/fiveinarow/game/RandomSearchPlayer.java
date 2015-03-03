@@ -3,7 +3,7 @@ package se.kjellstrand.fiveinarow.game;
 /**
  * Created by carlemil on 2015-02-25.
  */
-public class CloseToLastMovePlayer extends AbstractPlayer {
+public class RandomSearchPlayer extends AbstractPlayer {
 
     private Move lastMove = new Move(-1, -1);
 

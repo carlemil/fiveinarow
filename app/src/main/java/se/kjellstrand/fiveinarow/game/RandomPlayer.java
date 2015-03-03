@@ -5,6 +5,11 @@ package se.kjellstrand.fiveinarow.game;
  */
 public class RandomPlayer extends AbstractPlayer {
     @Override
+    public String getName() {
+        return "RNDP";
+    }
+
+    @Override
     public Move getNextMove(Board board) {
         Move move = new Move();
         int attempt = 0;

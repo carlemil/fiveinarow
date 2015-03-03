@@ -1,7 +1,5 @@
 package se.kjellstrand.fiveinarow.game;
 
-import android.util.Log;
-
 /**
  * Created by carlemil on 2015-02-25.
  */
@@ -11,14 +9,14 @@ public abstract class AbstractPlayer {
 
     private static int players = 0;
 
-    private static String name;
-
     public final int playerNumber;
 
     public AbstractPlayer() {
         playerNumber = ++players;
-        Log.d(TAG, "Player# " + playerNumber + " initialized.");
+        //Log.d(TAG, "Player# " + playerNumber + " initialized.");
     }
+
+    abstract public String getName();
 
     abstract public Move getNextMove(Board board);
 }

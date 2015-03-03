@@ -38,8 +38,13 @@ public class MainActivity extends ActionBarActivity {
                     if (p1 == p2) {
                         continue;
                     }
-                    Board b = new Board(BOARD_WIDTH, BOARD_HEIGHT);
-                    FiveInARow fir = new FiveInARow(b, players[p1], players[p2]);
+                    Board b = new Board(BOARD_WIDTH, BOARD_HEIGHT, players[p1], players[p2]);
+                    FiveInARow fir = null;
+                    try {
+                        fir = new FiveInARow(b);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     AbstractPlayer winningPlayer = fir.playTheGame();
                     //Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
                     if (winningPlayer.playerNumber == players[p1].playerNumber) {
@@ -52,7 +57,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         StringBuffer sb = new StringBuffer();
-        Log.d(TAG, "\n");
+        sb.append(".\n");
+        for (int p = 0; p < numberOfPlayers; p++) {
+            sb.append(players[p].getName()+", ");
+        }
+        sb.append("\n");
         for (int p1 = 0; p1 < numberOfPlayers; p1++) {
             for (int p2 = 0; p2 < numberOfPlayers; p2++) {
                 sb.append(winners[p1][p2] + ", ");
