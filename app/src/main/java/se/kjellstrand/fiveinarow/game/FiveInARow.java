@@ -9,10 +9,10 @@ public class FiveInARow {
 
     private final FiveInARowBoard b;
 
-    public FiveInARow(FiveInARowBoard _b) throws Exception {
+    public FiveInARow(FiveInARowBoard _b) {
         b = _b;
         if (b.getP1().equals(b.getP2())) {
-            throw new Exception("A player can not play itself.");
+            throw new RuntimeException("A player can not play itself.");
         }
     }
 

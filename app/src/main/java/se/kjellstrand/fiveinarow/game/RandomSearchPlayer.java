@@ -1,9 +1,13 @@
 package se.kjellstrand.fiveinarow.game;
 
+import android.util.Log;
+
 /**
  * Created by carlemil on 2015-02-25.
  */
 public class RandomSearchPlayer extends AbstractPlayer {
+
+    private static final String TAG = "RandomSearchPlayer";
 
     public RandomSearchPlayer(int _playerNumber) {
         super(_playerNumber);
@@ -20,6 +24,9 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
         AbstractPlayer rp1 = new RandomPlayer(board.getP1().playerNumber);
         AbstractPlayer rp2 = new RandomPlayer(board.getP2().playerNumber);
+
+        Log.d(TAG, ".\n.\n.\n----board-----");
+        board.print();
 
         FiveInARowBoard cloneBoard = new FiveInARowBoard(board, rp1, rp2);
 
@@ -41,6 +48,15 @@ public class RandomSearchPlayer extends AbstractPlayer {
             }
         }
 
+        StringBuffer sb = new StringBuffer();
+        for (int x = 0; x < cloneBoard.getWidth(); x++) {
+            for (int y = 0; y < cloneBoard.getHeight(); y++) {
+                sb.append(results[x][y] + ", ");
+            }
+            sb.append("\n");
+        }
+        Log.d(TAG, "----result-----\n" + sb.toString());
+
         Move bestMove = new Move(0, 0);
 
         for (int x = 0; x < cloneBoard.getWidth(); x++) {
@@ -51,6 +67,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
                 }
             }
         }
+        Log.d(TAG, "best move: " + bestMove);
 
         return bestMove;
     }

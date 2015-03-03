@@ -12,6 +12,9 @@ public abstract class AbstractPlayer {
     public final int playerNumber;
 
     public AbstractPlayer(int _playerNumber) {
+        if (_playerNumber == 0) {
+            throw new RuntimeException("playerNumber MUST NOT be 0.");
+        }
         playerNumber = _playerNumber;
         //Log.d(TAG, "Player# " + playerNumber + " initialized.");
     }

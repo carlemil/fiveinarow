@@ -5,17 +5,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import se.kjellstrand.fiveinarow.game.AbstractPlayer;
-import se.kjellstrand.fiveinarow.game.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game.CloseToLastMovePlayer;
 import se.kjellstrand.fiveinarow.game.FiveInARow;
+import se.kjellstrand.fiveinarow.game.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game.RandomPlayer;
 import se.kjellstrand.fiveinarow.game.RandomSearchPlayer;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final int BOARD_WIDTH = 12;
-    private static final int BOARD_HEIGHT = 12;
+    private static final int BOARD_WIDTH = 8;
+    private static final int BOARD_HEIGHT = 8;
     private static final String TAG = MainActivity.class.getCanonicalName();
 
     AbstractPlayer[] players;
@@ -27,11 +27,31 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //playTournament();
+        playSingleMatch();
+
+        finish();
+    }
+
+    private void playSingleMatch() {
+        AbstractPlayer p1 = new RandomPlayer(1);
+        AbstractPlayer p2 = new RandomSearchPlayer(2);
+
+        FiveInARowBoard b = new FiveInARowBoard(BOARD_WIDTH, BOARD_HEIGHT, p1, p2);
+        FiveInARow fir = null;
+        fir = new FiveInARow(b);
+        AbstractPlayer winningPlayer = fir.playTheGame();
+        Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
+
+        b.print();
+    }
+
+    private void playTournament() {
         players = new AbstractPlayer[numberOfPlayers];
         winners = new int[numberOfPlayers][numberOfPlayers];
-        players[0] = new RandomPlayer(0);
-        players[1] = new CloseToLastMovePlayer(1);
-        players[2] = new RandomSearchPlayer(2);
+        players[0] = new RandomPlayer(1);
+        players[1] = new CloseToLastMovePlayer(2);
+        players[2] = new RandomSearchPlayer(3);
 
         for (int i = 0; i < 1; i++) {
             for (int p1 = 2; p1 < numberOfPlayers; p1++) {
@@ -61,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
         StringBuffer sb = new StringBuffer();
         sb.append(".\n");
         for (int p = 0; p < numberOfPlayers; p++) {
-            sb.append(players[p].getName()+", ");
+            sb.append(players[p].getName() + ", ");
         }
         sb.append("\n");
         for (int p1 = 0; p1 < numberOfPlayers; p1++) {
@@ -71,7 +91,5 @@ public class MainActivity extends ActionBarActivity {
             sb.append("\n");
         }
         Log.d(TAG, sb.toString());
-
-        finish();
     }
 }
