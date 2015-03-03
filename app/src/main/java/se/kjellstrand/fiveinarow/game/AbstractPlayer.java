@@ -11,8 +11,8 @@ public abstract class AbstractPlayer {
 
     public final int playerNumber;
 
-    public AbstractPlayer() {
-        playerNumber = ++players;
+    public AbstractPlayer(int _playerNumber) {
+        playerNumber = _playerNumber;
         //Log.d(TAG, "Player# " + playerNumber + " initialized.");
     }
 

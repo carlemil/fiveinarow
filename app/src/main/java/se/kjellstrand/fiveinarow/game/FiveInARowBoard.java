@@ -14,6 +14,7 @@ public class FiveInARowBoard {
 
     private AbstractPlayer p1;
     private AbstractPlayer p2;
+    private AbstractPlayer currentPlayer;
 
     private int[][] board = null;
 
@@ -23,25 +24,33 @@ public class FiveInARowBoard {
         board = new int[width][height];
         p1 = _p1;
         p2 = _p2;
+        currentPlayer = p1;
+
     }
 
-    public FiveInARowBoard(int _width, int _height, AbstractPlayer _p1, AbstractPlayer _p2, int[][] _board) {
-        width = _width;
-        height = _height;
-        board = new int[width][height];
+    public FiveInARowBoard(FiveInARowBoard b, AbstractPlayer _p1, AbstractPlayer _p2) {
+        width = b.getWidth();
+        height = b.getHeight();
+        board = b.getCopyOfBoard();
         p1 = _p1;
         p2 = _p2;
-        for(int y=0;y<height;y++){
-            for(int x=0;x<width;x++){
-                board[x][y] = _board[x][y];
-            }
+        if (b.getCurrentPlayer().equals(b.getP1())) {
+            currentPlayer = p1;
+        } else {
+            currentPlayer = p2;
         }
     }
 
-    public FiveInARowBoard clone(){
-        FiveInARowBoard b = new FiveInARowBoard(width, height, p1, p2, board);
+    public int[][] getCopyOfBoard() {
+        int[][] b = new int[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                b[x][y] = board[x][y];
+            }
+        }
         return b;
     }
+
 
     public int getWidth() {
         return width;
@@ -57,7 +66,17 @@ public class FiveInARowBoard {
 
             board[move.x][move.y] = player.playerNumber;
         }
-        return getState(move);
+
+        GameState state = getState(move);
+        if (state == GameState.UNDEFINED) {
+            if (currentPlayer != p1) {
+                currentPlayer = p1;
+            } else {
+                currentPlayer = p2;
+            }
+        }
+
+        return state;
     }
 
     public int getPlayerOnPosition(int x, int y) {
@@ -118,4 +137,9 @@ public class FiveInARowBoard {
     public AbstractPlayer getP2() {
         return p2;
     }
+
+    public AbstractPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
+
 }

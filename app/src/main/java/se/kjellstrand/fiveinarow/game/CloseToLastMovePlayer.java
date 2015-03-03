@@ -7,6 +7,10 @@ public class CloseToLastMovePlayer extends AbstractPlayer {
 
     private Move lastMove = new Move(-1, -1);
 
+    public CloseToLastMovePlayer(int _playerNumber) {
+        super(_playerNumber);
+    }
+
     @Override
     public String getName() {
         return "CTLM";

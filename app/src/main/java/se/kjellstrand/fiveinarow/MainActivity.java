@@ -9,6 +9,7 @@ import se.kjellstrand.fiveinarow.game.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game.CloseToLastMovePlayer;
 import se.kjellstrand.fiveinarow.game.FiveInARow;
 import se.kjellstrand.fiveinarow.game.RandomPlayer;
+import se.kjellstrand.fiveinarow.game.RandomSearchPlayer;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -28,12 +29,12 @@ public class MainActivity extends ActionBarActivity {
 
         players = new AbstractPlayer[numberOfPlayers];
         winners = new int[numberOfPlayers][numberOfPlayers];
-        players[0] = new RandomPlayer();
-        players[1] = new CloseToLastMovePlayer();
-        players[2] = new CloseToLastMovePlayer();
+        players[0] = new RandomPlayer(0);
+        players[1] = new CloseToLastMovePlayer(1);
+        players[2] = new RandomSearchPlayer(2);
 
-        for (int i = 0; i < 1000; i++) {
-            for (int p1 = 0; p1 < numberOfPlayers; p1++) {
+        for (int i = 0; i < 1; i++) {
+            for (int p1 = 2; p1 < numberOfPlayers; p1++) {
                 for (int p2 = 0; p2 < numberOfPlayers; p2++) {
                     if (p1 == p2) {
                         continue;
@@ -46,12 +47,13 @@ public class MainActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     AbstractPlayer winningPlayer = fir.playTheGame();
-                    //Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
+                    Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
                     if (winningPlayer.playerNumber == players[p1].playerNumber) {
                         winners[p1][p2]++;
                     } else {
                         winners[p2][p1]++;
                     }
+                    b.print();
                 }
             }
         }

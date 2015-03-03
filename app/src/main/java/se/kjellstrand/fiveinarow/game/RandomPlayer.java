@@ -9,6 +9,10 @@ public class RandomPlayer extends AbstractPlayer {
         return "RNDP";
     }
 
+    public RandomPlayer(int _playerNumber) {
+        super(_playerNumber);
+    }
+
     @Override
     public Move getNextMove(FiveInARowBoard board) {
         Move move = new Move();
