@@ -13,12 +13,12 @@ public class CloseToLastMovePlayer extends AbstractPlayer {
         if (lastMove.x != -1 && lastMove.y != -1) {
             int attempt = 0;
             do {
-                move.x = lastMove.x + (int) ((Math.random() - 0.5f) * 4);
-                move.y = lastMove.y + (int) ((Math.random() - 0.5f) * 4);
+                move.x = lastMove.x + (int) ((Math.random() - 0.5f) * 6);
+                move.y = lastMove.y + (int) ((Math.random() - 0.5f) * 6);
             } while (!board.isMoveLegal(move) && attempt++ < 100);
         } else {
-            move.x = 0;
-            move.y = 0;
+            move.x = board.getWidth() / 2;
+            move.y = board.getHeight() / 2;
         }
         lastMove.x = move.x;
         lastMove.y = move.y;

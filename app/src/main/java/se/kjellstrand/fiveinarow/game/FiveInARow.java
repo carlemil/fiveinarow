@@ -1,13 +1,11 @@
 package se.kjellstrand.fiveinarow.game;
 
-import android.util.Log;
-
 /**
  * Created by carlemil on 2015-02-25.
  */
 public class FiveInARow {
 
-    private static final String TAG = FiveInARow.class.getCanonicalName();
+    private static final String TAG = "FiveInARow";
 
     private final AbstractPlayer p1;
     private final AbstractPlayer p2;
@@ -23,14 +21,27 @@ public class FiveInARow {
         currentPlayer = p1;
     }
 
-    public AbstractPlayer getCurrentPlayer() {
+    public AbstractPlayer playTheGame() {
+        GameState state = GameState.UNDEFINED;
+        while (state == GameState.UNDEFINED) {
+            state = advanceGame();
+        }
+
+        if (state == GameState.LOSS) {
+            if (currentPlayer == p1) {
+                return p2;
+            } else {
+                return p1;
+            }
+        }
         return currentPlayer;
     }
 
-    public GameState advanceGame() {
+    private GameState advanceGame() {
         GameState state;
         Move move = currentPlayer.getNextMove(b);
         boolean moveLegal = b.isMoveLegal(move);
+        //Log.d(TAG, "player: " + currentPlayer.playerNumber + ", move: " + move + ", move is legal: " + moveLegal);
         if (moveLegal) {
             state = b.makeMove(move, currentPlayer);
             if (state == GameState.UNDEFINED) {
@@ -43,7 +54,6 @@ public class FiveInARow {
         } else {
             state = GameState.LOSS;
         }
-        Log.d(TAG, "move: " + move);
         return state;
     }
 
