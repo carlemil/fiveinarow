@@ -10,7 +10,7 @@ public class RandomPlayer extends AbstractPlayer {
     }
 
     @Override
-    public Move getNextMove(Board board) {
+    public Move getNextMove(FiveInARowBoard board) {
         Move move = new Move();
         int attempt = 0;
         do {

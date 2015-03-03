@@ -13,7 +13,7 @@ public class CloseToLastMovePlayer extends AbstractPlayer {
     }
 
     @Override
-    public Move getNextMove(Board board) {
+    public Move getNextMove(FiveInARowBoard board) {
         Move move = new Move();
         if (lastMove.x != -1 && lastMove.y != -1) {
             int attempt = 0;

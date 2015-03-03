@@ -18,5 +18,5 @@ public abstract class AbstractPlayer {
 
     abstract public String getName();
 
-    abstract public Move getNextMove(Board board);
+    abstract public Move getNextMove(FiveInARowBoard board);
 }

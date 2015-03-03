@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import se.kjellstrand.fiveinarow.game.AbstractPlayer;
-import se.kjellstrand.fiveinarow.game.Board;
+import se.kjellstrand.fiveinarow.game.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game.CloseToLastMovePlayer;
 import se.kjellstrand.fiveinarow.game.FiveInARow;
 import se.kjellstrand.fiveinarow.game.RandomPlayer;
@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
                     if (p1 == p2) {
                         continue;
                     }
-                    Board b = new Board(BOARD_WIDTH, BOARD_HEIGHT, players[p1], players[p2]);
+                    FiveInARowBoard b = new FiveInARowBoard(BOARD_WIDTH, BOARD_HEIGHT, players[p1], players[p2]);
                     FiveInARow fir = null;
                     try {
                         fir = new FiveInARow(b);

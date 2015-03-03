@@ -7,11 +7,11 @@ public class FiveInARow {
 
     private static final String TAG = "FiveInARow";
 
-    private final Board b;
+    private final FiveInARowBoard b;
 
     private AbstractPlayer currentPlayer;
 
-    public FiveInARow(Board _b) throws Exception {
+    public FiveInARow(FiveInARowBoard _b) throws Exception {
         b = _b;
         currentPlayer = b.getP1();
         if (b.getP1().equals(b.getP2())) {
