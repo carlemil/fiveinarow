@@ -1,5 +1,7 @@
 package se.kjellstrand.fiveinarow.game;
 
+import android.util.Log;
+
 /**
  * Created by carlemil on 2015-02-25.
  */
@@ -32,11 +34,10 @@ public class FiveInARow {
         return b.getCurrentPlayer();
     }
 
-    private GameState advanceGame() {
+    public GameState advanceGame() {
         GameState state;
         Move move = b.getCurrentPlayer().getNextMove(b);
         boolean moveLegal = b.isMoveLegal(move);
-        //Log.d(TAG, "player: " + currentPlayer.playerNumber + ", move: " + move + ", move is legal: " + moveLegal);
         if (moveLegal) {
             state = b.makeMove(move, b.getCurrentPlayer());
         } else {

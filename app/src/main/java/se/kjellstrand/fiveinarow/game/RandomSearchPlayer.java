@@ -22,26 +22,35 @@ public class RandomSearchPlayer extends AbstractPlayer {
     public Move getNextMove(FiveInARowBoard board) {
         int[][] results = new int[board.getWidth()][board.getHeight()];
 
-        AbstractPlayer rp1 = new RandomPlayer(board.getP1().playerNumber);
-        AbstractPlayer rp2 = new RandomPlayer(board.getP2().playerNumber);
+        AbstractPlayer rp1 = new RandomPlayer(board.getP1().getPlayerNumber());
+        AbstractPlayer rp2 = new RandomPlayer(board.getP2().getPlayerNumber());
 
         Log.d(TAG, ".\n.\n.\n----board-----");
         board.print();
 
-        FiveInARowBoard cloneBoard = new FiveInARowBoard(board, rp1, rp2);
+        AbstractPlayer currentPlayer = board.getCurrentPlayer();
+        AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
 
-        AbstractPlayer currentPlayer = cloneBoard.getCurrentPlayer();
-
-        for (int i = 0; i < 100; i++) {
-            Move move = currentPlayer.getNextMove(cloneBoard);
+        Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
+        for (int i = 0; i < 1; i++) {
+            FiveInARowBoard cloneBoard = new FiveInARowBoard(board, rp1, rp2);
+            Move move = rp.getNextMove(cloneBoard);
+            Log.d(TAG, "move " + move);
+            cloneBoard.makeMove(move, currentPlayer);
             FiveInARow fir = null;
             try {
                 fir = new FiveInARow(cloneBoard);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            Log.d(TAG, "before win");
+            cloneBoard.print();
             AbstractPlayer winner = fir.playTheGame();
-            if (winner.equals(currentPlayer)) {
+            Log.d(TAG, "after win");
+            cloneBoard.print();
+            Log.d(TAG, "current player " + currentPlayer.getPlayerNumber());
+            Log.d(TAG, "move " + move + ", winner " + winner.getPlayerNumber());
+            if (winner.getPlayerNumber() == currentPlayer.getPlayerNumber()) {
                 results[move.x][move.y]++;
             } else {
                 results[move.x][move.y]--;
@@ -49,8 +58,8 @@ public class RandomSearchPlayer extends AbstractPlayer {
         }
 
         StringBuffer sb = new StringBuffer();
-        for (int x = 0; x < cloneBoard.getWidth(); x++) {
-            for (int y = 0; y < cloneBoard.getHeight(); y++) {
+        for (int y = 0; y < board.getHeight(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
                 sb.append(results[x][y] + ", ");
             }
             sb.append("\n");
@@ -59,8 +68,8 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
         Move bestMove = new Move(0, 0);
 
-        for (int x = 0; x < cloneBoard.getWidth(); x++) {
-            for (int y = 0; y < cloneBoard.getHeight(); y++) {
+        for (int y = 0; y < board.getHeight(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
                 if (results[bestMove.x][bestMove.y] < results[x][y]) {
                     bestMove.x = x;
                     bestMove.y = y;

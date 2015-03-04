@@ -64,7 +64,7 @@ public class FiveInARowBoard {
         if (move != null && move.x >= 0 && move.x < width &&
                 move.y >= 0 && move.y < height) {
 
-            board[move.x][move.y] = player.playerNumber;
+            board[move.x][move.y] = player.getPlayerNumber();
         }
 
         GameState state = getState(move);

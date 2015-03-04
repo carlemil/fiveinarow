@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         FiveInARow fir = null;
         fir = new FiveInARow(b);
         AbstractPlayer winningPlayer = fir.playTheGame();
-        Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
+        Log.d(TAG, "Winner is : " + winningPlayer.getPlayerNumber());
 
         b.print();
     }
@@ -67,8 +67,8 @@ public class MainActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     AbstractPlayer winningPlayer = fir.playTheGame();
-                    Log.d(TAG, "Winner is : " + winningPlayer.playerNumber);
-                    if (winningPlayer.playerNumber == players[p1].playerNumber) {
+                    Log.d(TAG, "Winner is : " + winningPlayer.getPlayerNumber());
+                    if (winningPlayer.getPlayerNumber() == players[p1].getPlayerNumber()) {
                         winners[p1][p2]++;
                     } else {
                         winners[p2][p1]++;

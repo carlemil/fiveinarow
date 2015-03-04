@@ -20,7 +20,7 @@ public class RandomPlayer extends AbstractPlayer {
         do {
             move.x = (int) (Math.random() * board.getWidth());
             move.y = (int) (Math.random() * board.getHeight());
-        } while (!board.isMoveLegal(move) && attempt++ < 100);
+        } while (!board.isMoveLegal(move) && attempt++ < 1000);
 
         return move;
     }

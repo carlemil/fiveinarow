@@ -9,7 +9,7 @@ public abstract class AbstractPlayer {
 
     private static int players = 0;
 
-    public final int playerNumber;
+    private final int playerNumber;
 
     public AbstractPlayer(int _playerNumber) {
         if (_playerNumber == 0) {
@@ -22,4 +22,8 @@ public abstract class AbstractPlayer {
     abstract public String getName();
 
     abstract public Move getNextMove(FiveInARowBoard board);
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
 }
