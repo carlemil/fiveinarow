@@ -32,30 +32,30 @@ public class RandomSearchPlayer extends AbstractPlayer {
         AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
 
         Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 100000; i++) {
             FiveInARowBoard cloneBoard;
             Move move;
 
             cloneBoard = new FiveInARowBoard(board, rp1, rp2);
 
             move = rp.getNextMove(cloneBoard);
-            Log.d(TAG, "move " + move);
+            //Log.d(TAG, "move " + move);
 
             cloneBoard.makeMove(move, currentPlayer);
-
-            AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, cloneBoard, move);
+            //printResultArray(results);
+            AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, cloneBoard);
 
             updateResultBoard(results, currentPlayer, move, winner);
         }
 
-        printResultArray(board, results);
+        printResultArray(results);
         Move bestMove = getBestMove(board, results);
         Log.d(TAG, "best move: " + bestMove);
 
         return bestMove;
     }
 
-    private void updateResultBoard(int[][] results, AbstractPlayer currentPlayer, Move move, AbstractPlayer winner) {
+    public void updateResultBoard(int[][] results, AbstractPlayer currentPlayer, Move move, AbstractPlayer winner) {
         if (winner.getPlayerNumber() == currentPlayer.getPlayerNumber()) {
             results[move.x][move.y]++;
         } else {
@@ -63,24 +63,24 @@ public class RandomSearchPlayer extends AbstractPlayer {
         }
     }
 
-    private AbstractPlayer playRandomGameOnBoard(AbstractPlayer currentPlayer, FiveInARowBoard cloneBoard, Move move) {
+    public AbstractPlayer playRandomGameOnBoard(AbstractPlayer currentPlayer, FiveInARowBoard cloneBoard) {
         FiveInARow fir = null;
         try {
             fir = new FiveInARow(cloneBoard);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "before win");
-        cloneBoard.print();
+        //Log.d(TAG, "before win");
+        //cloneBoard.print();
         AbstractPlayer winner = fir.playTheGame();
-        Log.d(TAG, "after win");
-        cloneBoard.print();
-        Log.d(TAG, "current player " + currentPlayer.getPlayerNumber());
-        Log.d(TAG, "move " + move + ", winner " + winner.getPlayerNumber());
+        //Log.d(TAG, "after win");
+        //cloneBoard.print();
+        //Log.d(TAG, "current player " + currentPlayer.getPlayerNumber());
+        //Log.d(TAG, "move " + move + ", winner " + winner.getPlayerNumber());
         return winner;
     }
 
-    private Move getBestMove(FiveInARowBoard board, int[][] results) {
+    public Move getBestMove(FiveInARowBoard board, int[][] results) {
         Move bestMove = new Move(0, 0);
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
@@ -93,10 +93,10 @@ public class RandomSearchPlayer extends AbstractPlayer {
         return bestMove;
     }
 
-    private void printResultArray(FiveInARowBoard board, int[][] results) {
+    public void printResultArray(int[][] results) {
         StringBuffer sb = new StringBuffer();
-        for (int y = 0; y < board.getHeight(); y++) {
-            for (int x = 0; x < board.getWidth(); x++) {
+        for (int y = 0; y < results.length; y++) {
+            for (int x = 0; x < results[0].length; x++) {
                 sb.append(results[x][y] + ", ");
             }
             sb.append("\n");

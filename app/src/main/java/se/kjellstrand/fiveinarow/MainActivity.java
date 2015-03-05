@@ -41,7 +41,11 @@ public class MainActivity extends ActionBarActivity {
         FiveInARow fir = null;
         fir = new FiveInARow(b);
         AbstractPlayer winningPlayer = fir.playTheGame();
-        Log.d(TAG, "Winner is : " + winningPlayer.getPlayerNumber());
+        if(winningPlayer!=null) {
+            Log.d(TAG, "Winner is : " + winningPlayer.getPlayerNumber());
+        }else{
+            Log.d(TAG, "It's a DRAW!!!");
+        }
 
         b.print();
     }

@@ -18,20 +18,23 @@ public class FiveInARowBoard {
 
     private int[][] board = null;
 
+    private int madeMoves;
+
     public FiveInARowBoard(int _width, int _height, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = _width;
         height = _height;
         board = new int[width][height];
+        madeMoves = 0;
         p1 = _p1;
         p2 = _p2;
         currentPlayer = p1;
-
     }
 
     public FiveInARowBoard(FiveInARowBoard b, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = b.getWidth();
         height = b.getHeight();
         board = b.getCopyOfBoard();
+        madeMoves = countMadeMoves();
         p1 = _p1;
         p2 = _p2;
         if (b.getCurrentPlayer().equals(b.getP1())) {
@@ -39,6 +42,18 @@ public class FiveInARowBoard {
         } else {
             currentPlayer = p2;
         }
+    }
+
+    private int countMadeMoves() {
+        int moves = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (board[x][y] != 0) {
+                    moves++;
+                }
+            }
+        }
+        return moves;
     }
 
     public int[][] getCopyOfBoard() {
@@ -51,7 +66,6 @@ public class FiveInARowBoard {
         return b;
     }
 
-
     public int getWidth() {
         return width;
     }
@@ -63,10 +77,11 @@ public class FiveInARowBoard {
     public GameState makeMove(Move move, AbstractPlayer player) {
         if (move != null && move.x >= 0 && move.x < width &&
                 move.y >= 0 && move.y < height) {
-
+            if (board[move.x][move.y] != 0) {
+                throw new RuntimeException("Can not play on a occupied square. move: " + move);
+            }
             board[move.x][move.y] = player.getPlayerNumber();
         }
-
         GameState state = getState(move);
         if (state == GameState.UNDEFINED) {
             if (currentPlayer != p1) {
@@ -75,7 +90,6 @@ public class FiveInARowBoard {
                 currentPlayer = p2;
             }
         }
-
         return state;
     }
 
@@ -142,4 +156,7 @@ public class FiveInARowBoard {
         return currentPlayer;
     }
 
+    public boolean isBoardFull() {
+        return madeMoves >= height * width;
+    }
 }
