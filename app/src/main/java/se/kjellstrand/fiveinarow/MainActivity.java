@@ -27,8 +27,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //playTournament();
-        playSingleMatch();
+        playTournament();
+        //playSingleMatch();
 
         finish();
     }
@@ -53,11 +53,12 @@ public class MainActivity extends ActionBarActivity {
     private void playTournament() {
         players = new AbstractPlayer[numberOfPlayers];
         winners = new int[numberOfPlayers][numberOfPlayers];
-        players[0] = new RandomPlayer(1);
-        players[1] = new CloseToLastMovePlayer(2);
-        players[2] = new RandomSearchPlayer(3);
+        int playerNumber = 0;
+        players[playerNumber++] = new RandomPlayer(1);
+        players[playerNumber++] = new CloseToLastMovePlayer(2);
+        players[playerNumber++] = new RandomSearchPlayer(3);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 100; i++) {
             for (int p1 = 2; p1 < numberOfPlayers; p1++) {
                 for (int p2 = 0; p2 < numberOfPlayers; p2++) {
                     if (p1 == p2) {
@@ -77,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
                     } else {
                         winners[p2][p1]++;
                     }
-                    b.print();
+                    //b.print();
                 }
             }
         }
