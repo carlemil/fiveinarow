@@ -78,6 +78,7 @@ public class FiveInARowBoard {
         if (move != null && move.x >= 0 && move.x < width &&
                 move.y >= 0 && move.y < height) {
             if (board[move.x][move.y] != 0) {
+                Log.d(TAG, "\n---board---\n" + board.toString());
                 throw new RuntimeException("Can not play on a occupied square. move: " + move);
             }
             board[move.x][move.y] = player.getPlayerNumber();
