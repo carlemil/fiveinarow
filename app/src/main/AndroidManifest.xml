@@ -7,17 +7,19 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".main_page.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-        android:name=".TestPlaceholderActivity"
-        android:label="@string/title_activity_test_placeholder" >
+            android:name=".game_page.GameActivity"
+            android:label="@string/title_activity_game" >
         </activity>
     </application>
 

@@ -1,10 +1,11 @@
-package se.kjellstrand.fiveinarow.game;
+package se.kjellstrand.fiveinarow.game_model;
 
-import android.app.Activity;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import junit.framework.TestCase;
+import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game_model.players.RandomPlayer;
+import se.kjellstrand.fiveinarow.game_model.players.RandomSearchPlayer;
 
 public class RandomSearchPlayerTest extends AndroidTestCase {
 

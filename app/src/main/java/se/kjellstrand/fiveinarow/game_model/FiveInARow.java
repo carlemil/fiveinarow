@@ -1,4 +1,6 @@
-package se.kjellstrand.fiveinarow.game;
+package se.kjellstrand.fiveinarow.game_model;
+
+import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
 
 /**
  * Created by carlemil on 2015-02-25.

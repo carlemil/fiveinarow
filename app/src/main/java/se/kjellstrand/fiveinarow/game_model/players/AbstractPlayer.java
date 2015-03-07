@@ -1,4 +1,7 @@
-package se.kjellstrand.fiveinarow.game;
+package se.kjellstrand.fiveinarow.game_model.players;
+
+import se.kjellstrand.fiveinarow.game_model.FiveInARowBoard;
+import se.kjellstrand.fiveinarow.game_model.Move;
 
 /**
  * Created by carlemil on 2015-02-25.
