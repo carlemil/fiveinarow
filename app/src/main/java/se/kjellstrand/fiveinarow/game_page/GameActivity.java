@@ -1,11 +1,10 @@
 package se.kjellstrand.fiveinarow.game_page;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,11 +22,11 @@ public class GameActivity extends ActionBarActivity {
      * @param activity A activity to use for context.
      */
     public static void newInstance(Activity activity) {
-        Intent intent= new Intent(activity, GameActivity.class);
+        Intent intent = new Intent(activity, GameActivity.class);
         activity.startActivity(intent);
     }
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
