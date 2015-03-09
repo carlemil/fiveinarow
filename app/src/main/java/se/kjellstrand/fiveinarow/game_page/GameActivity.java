@@ -2,18 +2,18 @@ package se.kjellstrand.fiveinarow.game_page;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import se.kjellstrand.fiveinarow.R;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity implements GameFragment.OnFragmentInteractionListener {
+
+    private static final String TAG = GameActivity.class.getSimpleName();
 
     /**
      * Use this factory method to create a new instance of
@@ -31,8 +31,9 @@ public class GameActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         if (savedInstanceState == null) {
+            GameFragment gameFragment = GameFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, gameFragment)
                     .commit();
         }
     }
@@ -60,19 +61,8 @@ public class GameActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_game, container, false);
-            return rootView;
-        }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d(TAG, "uri: " + uri.toString());
     }
 }
