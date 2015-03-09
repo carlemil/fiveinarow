@@ -54,4 +54,8 @@ public class FiveInARow {
     public void printBoard() {
         b.print();
     }
+
+    public int[][] getBoardCopy(){
+        return b.getCopyOfBoard();
+    }
 }
