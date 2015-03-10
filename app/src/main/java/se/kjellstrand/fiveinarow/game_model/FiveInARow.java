@@ -1,6 +1,7 @@
 package se.kjellstrand.fiveinarow.game_model;
 
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game_page.BoardView;
 
 /**
  * Created by carlemil on 2015-02-25.
@@ -18,10 +19,13 @@ public class FiveInARow {
         }
     }
 
-    public AbstractPlayer playTheGame() {
+    public AbstractPlayer playTheGame(BoardView boardView) {
         GameState state = GameState.UNDEFINED;
         while (state == GameState.UNDEFINED) {
             state = advanceGame();
+            if (boardView != null) {
+                boardView.redraw(getBoardCopy());
+            }
         }
 
         if (state == GameState.LOSS) {
@@ -30,7 +34,7 @@ public class FiveInARow {
             } else {
                 return b.getP1();
             }
-        } else if(state == GameState.DRAW) {
+        } else if (state == GameState.DRAW) {
             return null;
         }
         return b.getCurrentPlayer();
@@ -38,7 +42,7 @@ public class FiveInARow {
 
     public GameState advanceGame() {
         GameState state;
-        if(b.isBoardFull()){
+        if (b.isBoardFull()) {
             return GameState.DRAW;
         }
         Move move = b.getCurrentPlayer().getNextMove(b);
@@ -51,11 +55,7 @@ public class FiveInARow {
         return state;
     }
 
-    public void printBoard() {
-        b.print();
-    }
-
-    public int[][] getBoardCopy(){
+    public int[][] getBoardCopy() {
         return b.getCopyOfBoard();
     }
 }

@@ -76,7 +76,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         }
         //Log.d(TAG, "before win");
         //cloneBoard.print();
-        AbstractPlayer winner = fir.playTheGame();
+        AbstractPlayer winner = fir.playTheGame(null);
         //Log.d(TAG, "after win");
         //cloneBoard.print();
         //Log.d(TAG, "current player " + currentPlayer.getPlayerNumber());

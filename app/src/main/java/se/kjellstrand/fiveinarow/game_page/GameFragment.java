@@ -60,12 +60,8 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game, container, false);
-
         boardView = (BoardView) view.findViewById(R.id.game_board);
-        boardView.setBoard(fiveInARowGame.getBoardCopy());
-
-        fiveInARowGame.playTheGame();
-
+        fiveInARowGame.playTheGame(boardView);
         return view;
     }
 

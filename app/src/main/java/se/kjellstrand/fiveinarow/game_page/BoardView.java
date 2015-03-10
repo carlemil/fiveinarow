@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import se.kjellstrand.fiveinarow.R;
@@ -15,6 +16,7 @@ import se.kjellstrand.fiveinarow.R;
  */
 public class BoardView extends View {
 
+    private static final String TAG = BoardView.class.getSimpleName();
     private int[][] board;
 
     Bitmap playerXmarkBitmap;
@@ -52,7 +54,7 @@ public class BoardView extends View {
 //        RectF a = new RectF(0, 0, 200, 200);
 //        canvas.drawOval(a, paint);
         canvas.drawBitmap(backgroundBitmap, getMatrix(), paint);
-
+        Log.d(TAG, "draw");
 
     }
 
@@ -61,7 +63,9 @@ public class BoardView extends View {
         //getMatrix().preScale()
     }
 
-    public void setBoard(int[][] _board) {
+    public void redraw(int[][] _board) {
         this.board = _board;
+        postInvalidate();
+        Log.d(TAG, "redraw");
     }
 }
