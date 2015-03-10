@@ -51,7 +51,7 @@ public class GameFragment extends Fragment {
 
         AbstractPlayer p1 = new RandomPlayer(1);
         AbstractPlayer p2 = new RandomSearchPlayer(2);
-        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(19,19, p1, p2);
+        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(19, 19, p1, p2);
         fiveInARowGame = new FiveInARow(fiveInARowGameBoard);
     }
 
@@ -61,7 +61,18 @@ public class GameFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         boardView = (BoardView) view.findViewById(R.id.game_board);
-        fiveInARowGame.playTheGame(boardView);
+
+        view.findViewById(R.id.start_game_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fiveInARowGame.playTheGame(boardView);
+                    }
+                }).run();
+            }
+        });
         return view;
     }
 

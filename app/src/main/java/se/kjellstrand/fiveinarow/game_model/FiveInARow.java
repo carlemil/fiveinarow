@@ -1,5 +1,8 @@
 package se.kjellstrand.fiveinarow.game_model;
 
+import android.os.SystemClock;
+import android.util.Log;
+
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
 import se.kjellstrand.fiveinarow.game_page.BoardView;
 
@@ -25,6 +28,8 @@ public class FiveInARow {
             state = advanceGame();
             if (boardView != null) {
                 boardView.redraw(getBoardCopy());
+                Log.d(TAG, "playing the game");
+                SystemClock.sleep(100);
             }
         }
 

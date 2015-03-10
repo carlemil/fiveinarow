@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -51,8 +52,8 @@ public class BoardView extends View {
         // Draw the shadow
         Paint paint = new Paint();
         paint.setColor(0xff00ff00);
-//        RectF a = new RectF(0, 0, 200, 200);
-//        canvas.drawOval(a, paint);
+        RectF a = new RectF(0, 0, (int)Math.random()*500, (int)Math.random()*500);
+        canvas.drawOval(a, paint);
         canvas.drawBitmap(backgroundBitmap, getMatrix(), paint);
         Log.d(TAG, "draw");
 
