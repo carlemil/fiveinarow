@@ -10,7 +10,7 @@ import se.kjellstrand.fiveinarow.game_model.Move;
  */
 public class HumanPlayer extends AbstractPlayer {
 
-    private CountDownLatch countDownLatch;
+    private CountDownLatch countDownLatch = new CountDownLatch(0);
 
     private Move move;
 

@@ -13,6 +13,7 @@ import se.kjellstrand.fiveinarow.R;
 import se.kjellstrand.fiveinarow.game_model.FiveInARow;
 import se.kjellstrand.fiveinarow.game_model.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game_model.players.HumanPlayer;
 import se.kjellstrand.fiveinarow.game_model.players.RandomPlayer;
 import se.kjellstrand.fiveinarow.game_model.players.RandomSearchPlayer;
 
@@ -50,25 +51,26 @@ public class GameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AbstractPlayer p1 = new RandomPlayer(1);
-        AbstractPlayer p2 = new RandomSearchPlayer(2);
-        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(19, 19, p1, p2);
-        fiveInARowGame = new FiveInARow(fiveInARowGameBoard);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        AbstractPlayer p1 = new RandomSearchPlayer(2);
+        AbstractPlayer p2 = new HumanPlayer(1);
+        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(19, 19, p1, p2);
+        fiveInARowGame = new FiveInARow(fiveInARowGameBoard);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         boardView = (BoardView) view.findViewById(R.id.game_board);
 
-        view.findViewById(R.id.start_game_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-            }
-        });
+        boardView.setHumanPlayer((HumanPlayer) p2);
+
+        play();
+
         return view;
     }
 
