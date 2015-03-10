@@ -52,10 +52,10 @@ public class BoardView extends View {
         Paint paint = new Paint();
         // Draw the shadow
 
-        canvas.drawBitmap(backgroundBitmap, getMatrix(), paint);
+        //canvas.drawBitmap(backgroundBitmap, getMatrix(), paint);
 
         paint.setColor(0xff00ff00);
-        RectF a = new RectF(0, 0, (int)Math.random()*500, (int)Math.random()*500);
+        RectF a = new RectF(0, 0, (int)(Math.random()*500f), (int)(Math.random()*500f));
         canvas.drawOval(a, paint);
         Log.d(TAG, "draw");
 
