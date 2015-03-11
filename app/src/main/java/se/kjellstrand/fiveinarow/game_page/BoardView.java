@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,6 +27,7 @@ public class BoardView extends View {
     private Bitmap backgroundBitmap;
 
     private HumanPlayer humanPlayer;
+    private float tileSize = -1f;
 
     public BoardView(Context context) {
         super(context);
@@ -54,31 +54,33 @@ public class BoardView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint paint = new Paint();
-        // Draw the shadow
-
-        //canvas.drawBitmap(backgroundBitmap, getMatrix(), paint);
-
-        paint.setColor(0xff00ff00);
-        RectF a = new RectF(0, 0, (int) (Math.random() * 500f), (int) (Math.random() * 500f));
-        canvas.drawOval(a, paint);
-        Log.d(TAG, "draw");
-
         if (board != null) {
+
+            float tileWidth = canvas.getWidth() / board.length;
+            float tileHight = canvas.getHeight() / board[0].length;
+            float minTileSize = Math.min(tileHight, tileWidth);
+            if (minTileSize != tileSize) {
+                tileSize = minTileSize;
+                playerXmarkBitmap = Bitmap.createScaledBitmap(playerXmarkBitmap, (int) tileSize, (int) tileSize, true);
+                playerOmarkBitmap = Bitmap.createScaledBitmap(playerOmarkBitmap, (int) tileSize, (int) tileSize, true);
+            }
+            Paint paint = new Paint();
+
             for (int y = 0; y < board.length; y++) {
                 for (int x = 0; x < board[0].length; x++) {
                     if (board[x][y] != 0) {
-                        canvas.drawBitmap(playerXmarkBitmap, x * 100, y * 100, paint);
+                        Bitmap bitmap;
+                        bitmap = board[x][y] % 2 == 1 ? playerOmarkBitmap : playerXmarkBitmap;
+                        canvas.drawBitmap(bitmap, x * tileSize, y * tileSize, paint);
                     }
                 }
             }
         }
-
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        //getMatrix().preScale()
+
     }
 
     public void redraw(int[][] _board) {
@@ -94,10 +96,12 @@ public class BoardView extends View {
             public boolean onTouch(View v, MotionEvent event) {
                 Log.d(TAG, "click " + event.toString());
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Move move = new Move();
-                    move.x = (int) (event.getRawX() / 100);
-                    move.y = (int) (event.getRawY() / 100);
-                    humanPlayer.makeMove(move);
+                    if (tileSize != -1) {
+                        Move move = new Move();
+                        move.x = (int) (event.getX() / tileSize);
+                        move.y = (int) (event.getY() / tileSize);
+                        humanPlayer.makeMove(move);
+                    }
                     // Do what you want
                     return true;
                 }
