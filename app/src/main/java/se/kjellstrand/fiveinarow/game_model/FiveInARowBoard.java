@@ -129,10 +129,17 @@ public class FiveInARowBoard {
     }
 
     public boolean isMoveLegal(Move move) {
-        if (move != null &&
-                move.x >= 0 && move.x < width &&
-                move.y >= 0 && move.y < height &&
-                board[move.x][move.y] == 0) {
+        if (move != null) {
+            return isMoveLegal(move.x, move.y);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isMoveLegal(int x, int y) {
+        if (x >= 0 && x < width &&
+                y >= 0 && y < height &&
+                board[x][y] == 0) {
             return true;
         }
         return false;

@@ -48,13 +48,13 @@ public class RandomSearchPlayer extends AbstractPlayer {
             //Log.d(TAG, "move " + move);
 
             cloneBoard.makeMove(move, currentPlayer);
-            //printResultArray(results);
+            //printResultBoard(results);
             AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, cloneBoard);
 
             updateResultBoard(results, currentPlayer, move, winner);
         }
-
-        printResultArray(results);
+        board.print();
+        printResultBoard(results);
         Move bestMove = getBestMove(board, results);
         Log.d(TAG, "best move: " + bestMove);
 
@@ -64,7 +64,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
     private void intiResultBoard(int[][] results, FiveInARowBoard board) {
         for (int y = 0; y < results.length; y++) {
             for (int x = 0; x < results[0].length; x++) {
-                if (board.isMoveLegal(x,y)){
+                if (!board.isMoveLegal(x,y)){
                     results[x][y] = Integer.MIN_VALUE;
                 }
             }
@@ -95,16 +95,18 @@ public class RandomSearchPlayer extends AbstractPlayer {
         Move bestMove = new Move(0, 0);
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
-                if (results[bestMove.x][bestMove.y] < results[x][y]) {
+                if (//board.isMoveLegal(x, y) &&
+                        results[bestMove.x][bestMove.y] < results[x][y]) {
                     bestMove.x = x;
                     bestMove.y = y;
+                    Log.d(TAG, "legal: "+x+", "+y+" value "+results[bestMove.x][bestMove.y]);
                 }
             }
         }
         return bestMove;
     }
 
-    public void printResultArray(int[][] results) {
+    public void printResultBoard(int[][] results) {
         StringBuffer sb = new StringBuffer();
         for (int y = 0; y < results.length; y++) {
             for (int x = 0; x < results[0].length; x++) {
