@@ -29,7 +29,7 @@ public class FiveInARow {
             if (boardView != null) {
                 boardView.redraw(getBoardCopy());
                 Log.d(TAG, "playing the game");
-                SystemClock.sleep(100);
+                //SystemClock.sleep(100);
             }
         }
 
@@ -48,15 +48,18 @@ public class FiveInARow {
     public GameState advanceGame() {
         GameState state;
         if (b.isBoardFull()) {
+            Log.d(TAG, "ERROR: BOARD FULL");
             return GameState.DRAW;
         }
         Move move = b.getCurrentPlayer().getNextMove(b);
+        //Log.d(TAG, "MOVE: "+move);
         boolean moveLegal = b.isMoveLegal(move);
         if (moveLegal) {
             state = b.makeMove(move, b.getCurrentPlayer());
         } else {
             state = GameState.LOSS;
         }
+        //Log.d(TAG, "STATE: "+state);
         return state;
     }
 

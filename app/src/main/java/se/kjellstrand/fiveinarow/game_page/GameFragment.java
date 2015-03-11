@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class GameFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private BoardView boardView;
     private FiveInARow fiveInARowGame;
+    private String TAG = GameFragment.class.getSimpleName();
 
     /**
      * Use this factory method to create a new instance of
@@ -50,8 +52,6 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -60,7 +60,7 @@ public class GameFragment extends Fragment {
 
         AbstractPlayer p1 = new RandomSearchPlayer(2);
         AbstractPlayer p2 = new HumanPlayer(1);
-        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(19, 19, p1, p2);
+        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(9, 9, p1, p2);
         fiveInARowGame = new FiveInARow(fiveInARowGameBoard);
 
         // Inflate the layout for this fragment
@@ -95,7 +95,8 @@ public class GameFragment extends Fragment {
         new AsyncTask<Integer, Void, Void>(){
             @Override
             protected Void doInBackground(Integer... params) {
-                fiveInARowGame.playTheGame(boardView);
+                AbstractPlayer winner = fiveInARowGame.playTheGame(boardView);
+                Log.d(TAG, "Result: " +winner);
                 return null;
             }
         }.execute();

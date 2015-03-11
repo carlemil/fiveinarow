@@ -52,7 +52,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
             updateResultBoard(results, currentPlayer, move, winner);
         }
 
-        //printResultArray(results);
+        printResultArray(results);
         Move bestMove = getBestMove(board, results);
         //Log.d(TAG, "best move: " + bestMove);
 

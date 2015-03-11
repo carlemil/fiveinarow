@@ -83,6 +83,7 @@ public class FiveInARowBoard {
                 Log.d(TAG, "\n---board---\n" + board.toString());
                 throw new RuntimeException("Can not play on a occupied square. move: " + move);
             }
+            //Log.d(TAG, "move: "+move);
             board[move.x][move.y] = player.getPlayerNumber();
         }
         GameState state = getState(move);
@@ -93,6 +94,7 @@ public class FiveInARowBoard {
                 currentPlayer = p2;
             }
         }
+        //Log.d(TAG, "state: "+state);
         return state;
     }
 
