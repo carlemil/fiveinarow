@@ -20,7 +20,6 @@ public class RandomPlayer extends AbstractPlayer {
     public Move getNextMove(FiveInARowBoard board) {
         Move move = new Move();
         double currentMaxRnd = 0f;
-
         for (int y = 0; y < board.getWidth(); y++) {
             for (int x = 0; x < board.getHeight(); x++) {
                 if (board.isMoveLegal(x, y)) {
@@ -33,7 +32,6 @@ public class RandomPlayer extends AbstractPlayer {
                 }
             }
         }
-
         return move;
     }
 }

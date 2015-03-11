@@ -20,7 +20,7 @@ public class FiveInARowBoard {
 
     private int[][] board = null;
 
-    private int madeMoves;
+    private int madeMoves = 0;
 
     public FiveInARowBoard(int _width, int _height, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = _width;
@@ -85,6 +85,7 @@ public class FiveInARowBoard {
             }
             //Log.d(TAG, "move: "+move);
             board[move.x][move.y] = player.getPlayerNumber();
+            TODO //madeMoves++;
         }
         GameState state = getState(move);
         if (state == GameState.UNDEFINED) {
@@ -169,6 +170,7 @@ public class FiveInARowBoard {
     }
 
     public boolean isBoardFull() {
+        Log.d(TAG, "board fullnes: " + madeMoves + " height * width " + height * width);
         return madeMoves >= height * width;
     }
 }

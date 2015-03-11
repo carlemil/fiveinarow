@@ -60,7 +60,7 @@ public class GameFragment extends Fragment {
 
         AbstractPlayer p1 = new RandomSearchPlayer(2);
         AbstractPlayer p2 = new HumanPlayer(1);
-        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(9, 9, p1, p2);
+        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(5, 5, p1, p2);
         fiveInARowGame = new FiveInARow(fiveInARowGameBoard);
 
         // Inflate the layout for this fragment
