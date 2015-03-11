@@ -19,11 +19,20 @@ public class RandomPlayer extends AbstractPlayer {
     @Override
     public Move getNextMove(FiveInARowBoard board) {
         Move move = new Move();
-        int attempt = 0;
-        do {
-            move.x = (int) (Math.random() * board.getWidth());
-            move.y = (int) (Math.random() * board.getHeight());
-        } while (!board.isMoveLegal(move) && attempt++ < 100);
+        double currentMaxRnd = 0f;
+
+        for (int y = 0; y < board.getWidth(); y++) {
+            for (int x = 0; x < board.getHeight(); x++) {
+                if (board.isMoveLegal(x, y)) {
+                    double rnd = Math.random();
+                    if (rnd > currentMaxRnd) {
+                        currentMaxRnd = rnd;
+                        move.x = x;
+                        move.y = y;
+                    }
+                }
+            }
+        }
 
         return move;
     }
