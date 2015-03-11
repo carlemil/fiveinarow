@@ -26,6 +26,8 @@ public class RandomSearchPlayer extends AbstractPlayer {
     public Move getNextMove(FiveInARowBoard board) {
         int[][] results = new int[board.getWidth()][board.getHeight()];
 
+        intiResultBoard(results, board);
+
         AbstractPlayer rp1 = new RandomPlayer(board.getP1().getPlayerNumber());
         AbstractPlayer rp2 = new RandomPlayer(board.getP2().getPlayerNumber());
 
@@ -54,9 +56,19 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
         printResultArray(results);
         Move bestMove = getBestMove(board, results);
-        //Log.d(TAG, "best move: " + bestMove);
+        Log.d(TAG, "best move: " + bestMove);
 
         return bestMove;
+    }
+
+    private void intiResultBoard(int[][] results, FiveInARowBoard board) {
+        for (int y = 0; y < results.length; y++) {
+            for (int x = 0; x < results[0].length; x++) {
+                if (board.isMoveLegal(x,y)){
+                    results[x][y] = Integer.MIN_VALUE;
+                }
+            }
+        }
     }
 
     public void updateResultBoard(int[][] results, AbstractPlayer currentPlayer, Move move, AbstractPlayer winner) {
@@ -74,13 +86,8 @@ public class RandomSearchPlayer extends AbstractPlayer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //Log.d(TAG, "before win");
-        //cloneBoard.print();
+
         AbstractPlayer winner = fir.playTheGame(null);
-        //Log.d(TAG, "after win");
-        //cloneBoard.print();
-        //Log.d(TAG, "current player " + currentPlayer.getPlayerNumber());
-        //Log.d(TAG, "move " + move + ", winner " + winner.getPlayerNumber());
         return winner;
     }
 
