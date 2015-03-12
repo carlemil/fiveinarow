@@ -85,7 +85,8 @@ public class FiveInARowBoard {
             }
             //Log.d(TAG, "move: "+move);
             board[move.x][move.y] = player.getPlayerNumber();
-            TODO //madeMoves++;
+            //TODO
+            madeMoves++;
         }
         GameState state = getState(move);
         if (state == GameState.UNDEFINED) {
@@ -170,7 +171,7 @@ public class FiveInARowBoard {
     }
 
     public boolean isBoardFull() {
-        Log.d(TAG, "board fullnes: " + madeMoves + " height * width " + height * width);
+        //Log.d(TAG, "board fullnes: " + madeMoves + " height * width " + height * width);
         return madeMoves >= height * width;
     }
 }
