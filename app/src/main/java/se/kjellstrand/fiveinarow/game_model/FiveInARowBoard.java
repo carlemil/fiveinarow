@@ -89,6 +89,12 @@ public class FiveInARowBoard {
             madeMoves++;
         }
         GameState state = getState(move);
+        GameState state2 = getState2(move);
+        if (state != state2) {
+            print();
+            Log.d(TAG, "move " + move);
+            throw new RuntimeException("state missmatch");
+        }
         if (state == GameState.UNDEFINED) {
             if (currentPlayer != p1) {
                 currentPlayer = p1;
@@ -105,9 +111,8 @@ public class FiveInARowBoard {
     }
 
     private GameState getState(Move m) {
-        // TODO speedup kolla frpn m och utåt, såfort nuvarande :0, bryt och returnera UNDEF.
-        int p = board[m.x][m.y];
         // Check only around the new move
+        int p = board[m.x][m.y];
         int cx = 0;
         int cy = 0;
         int cxy = 0;
@@ -127,6 +132,90 @@ public class FiveInARowBoard {
                 return GameState.WIN;
             }
         }
+        return GameState.UNDEFINED;
+    }
+
+
+    private GameState getState2(Move m) {
+        // Check only around the new move
+        int p = board[m.x][m.y];
+        // Check left-right
+        int c = 0;
+        for (int i = 0; i < 5; i++) {
+            if (m.x + i >= 0 && m.x + i < width && board[m.x + i][m.y] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i < 5; i++) {
+            if (m.x - i >= 0 && m.x - i < width && board[m.x - i][m.y] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        if (c >= 5) {
+            return GameState.WIN;
+        }
+        // Check up-down
+        c = 0;
+        for (int i = 0; i < 5; i++) {
+            if (m.y + i >= 0 && m.y + i < height && board[m.x][m.y + i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i < 5; i++) {
+            if (m.y - i >= 0 && m.y - i < height && board[m.x][m.y - i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        if (c >= 5) {
+            return GameState.WIN;
+        }
+        // Check up/left-down/right
+        c = 0;
+        for (int i = 0; i < 5; i++) {
+            if (m.x + i >= 0 && m.x + i < width && m.y + i >= 0 && m.y + i < height && board[m.x + i][m.y + i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i < 5; i++) {
+            if (m.x - i >= 0 && m.x - i < width && m.y - i >= 0 && m.y - i < height && board[m.x - i][m.y - i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        if (c >= 5) {
+            return GameState.WIN;
+        }
+        // Check up/right-down-left
+        c = 0;
+        for (int i = 0; i < 5; i++) {
+            if (m.x + i >= 0 && m.x + i < width && m.y - i >= 0 && m.y - i < height && board[m.x + i][m.y - i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i < 5; i++) {
+            if (m.x - i >= 0 && m.x - i < width && m.y + i >= 0 && m.y + i < height && board[m.x - i][m.y + i] == p) {
+                c++;
+            } else {
+                break;
+            }
+        }
+        if (c >= 5) {
+            return GameState.WIN;
+        }
+
         return GameState.UNDEFINED;
     }
 
