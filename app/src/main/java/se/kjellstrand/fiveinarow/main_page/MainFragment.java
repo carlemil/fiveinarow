@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import se.kjellstrand.fiveinarow.R;
+import se.kjellstrand.fiveinarow.game_model.FiveInARowBoard;
+import se.kjellstrand.fiveinarow.game_model.Move;
+import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game_model.players.RandomPlayer;
 import se.kjellstrand.fiveinarow.game_page.GameActivity;
 
 /**
@@ -59,7 +63,30 @@ public class MainFragment extends Fragment {
             }
         });
 
+        ((Button) view.findViewById(R.id.test_check_speed_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testSpeedOfGetState();
+            }
+
+        });
+
         return view;
+    }
+
+    private void testSpeedOfGetState() {
+
+        AbstractPlayer p1 = new RandomPlayer(2);
+        AbstractPlayer p2 = new RandomPlayer(2);
+        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(15, 15, p1, p2);
+        for(int i=0;i<500;i++){
+            Move m = p1.getNextMove(fiveInARowGameBoard);
+            fiveInARowGameBoard.makeMove(m,p1);
+            m = p2.getNextMove(fiveInARowGameBoard);
+            fiveInARowGameBoard.makeMove(m,p2);
+        }
+        fiveInARowGameBoard.print();
+
     }
 
     @Override

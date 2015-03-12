@@ -90,6 +90,7 @@ public class FiveInARowBoard {
         }
         GameState state = getState(move);
         GameState state2 = getState2(move);
+
         if (state != state2) {
             print();
             Log.d(TAG, "move " + move);
@@ -110,7 +111,7 @@ public class FiveInARowBoard {
         return board[x][y];
     }
 
-    private GameState getState(Move m) {
+    public GameState getState(Move m) {
         // Check only around the new move
         int p = board[m.x][m.y];
         int cx = 0;
@@ -136,7 +137,7 @@ public class FiveInARowBoard {
     }
 
 
-    private GameState getState2(Move m) {
+    public GameState getState2(Move m) {
         // Check only around the new move
         int p = board[m.x][m.y];
         // Check left-right

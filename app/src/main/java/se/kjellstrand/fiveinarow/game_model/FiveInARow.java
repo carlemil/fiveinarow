@@ -48,7 +48,7 @@ public class FiveInARow {
     public GameState advanceGame() {
         GameState state;
         if (b.isBoardFull()) {
-            Log.d(TAG, "ERROR: BOARD FULL");
+            //Log.d(TAG, "ERROR: BOARD FULL");
             return GameState.DRAW;
         }
         Move move = b.getCurrentPlayer().getNextMove(b);
