@@ -23,7 +23,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
     }
 
     @Override
-    public Move getNextMove(FiveInARowBoard board) {
+    public void getNextMove(FiveInARowBoard board, Move move) {
         int[][] results = new int[board.getWidth()][board.getHeight()];
 
         intiResultBoard(results, board);
@@ -42,11 +42,11 @@ public class RandomSearchPlayer extends AbstractPlayer {
         //Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
         for (int i = 0; i < 10000; i++) {
             FiveInARowBoard cloneBoard;
-            Move move;
+            //Move move;
 
             cloneBoard = new FiveInARowBoard(board, rp1, rp2);
 
-            move = rp.getNextMove(cloneBoard);
+            rp.getNextMove(cloneBoard, move);
             //Log.d(TAG, "move " + move);
 
             cloneBoard.makeMove(move, currentPlayer);
@@ -63,7 +63,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         Move bestMove = getBestMove(board, results);
         Log.d(TAG, "best move: " + bestMove + " draws: " + draws);
 
-        return bestMove;
+        move = bestMove;
     }
 
     private void intiResultBoard(int[][] results, FiveInARowBoard board) {

@@ -24,7 +24,7 @@ public abstract class AbstractPlayer {
 
     abstract public String getName();
 
-    abstract public Move getNextMove(FiveInARowBoard board);
+    abstract public void getNextMove(FiveInARowBoard board, Move move);
 
     public int getPlayerNumber() {
         return playerNumber;

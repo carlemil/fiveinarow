@@ -1,6 +1,5 @@
 package se.kjellstrand.fiveinarow.game_model;
 
-import android.os.SystemClock;
 import android.util.Log;
 
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
@@ -14,6 +13,9 @@ public class FiveInARow {
     private static final String TAG = "FiveInARow";
 
     private final FiveInARowBoard b;
+
+    private Move move = new Move();
+
 
     public FiveInARow(FiveInARowBoard _b) {
         b = _b;
@@ -51,7 +53,7 @@ public class FiveInARow {
             //Log.d(TAG, "ERROR: BOARD FULL");
             return GameState.DRAW;
         }
-        Move move = b.getCurrentPlayer().getNextMove(b);
+        b.getCurrentPlayer().getNextMove(b, move);
         //Log.d(TAG, "MOVE: "+move);
         boolean moveLegal = b.isMoveLegal(move);
         if (moveLegal) {

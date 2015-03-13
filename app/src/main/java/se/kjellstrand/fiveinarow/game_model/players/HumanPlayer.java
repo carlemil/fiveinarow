@@ -15,7 +15,7 @@ public class HumanPlayer extends AbstractPlayer {
     private static final String TAG = HumanPlayer.class.getSimpleName();
     private CountDownLatch countDownLatch = new CountDownLatch(0);
 
-    private Move move;
+    private Move move = new Move();
 
     private FiveInARowBoard board = null;
 
@@ -34,24 +34,25 @@ public class HumanPlayer extends AbstractPlayer {
                 move.x = _move.x;
                 move.y = _move.y;
                 countDownLatch.countDown();
+                Log.d(TAG, "Human made a move: " + move);
             } else {
-                Log.d(TAG, "illegal move "+board+" move: "+move);
+                Log.d(TAG, "illegal move " + board + " move: " + move);
             }
         }
     }
 
     @Override
-    public Move getNextMove(FiveInARowBoard _board) {
+    public void getNextMove(FiveInARowBoard _board, Move _move) {
         board = _board;
-        move = new Move();
         countDownLatch = new CountDownLatch(1);
 
         try {
             countDownLatch.await();
+            _move.x = move.x;
+            _move.y = move.y;
+            Log.d(TAG, "Returning human move " + move);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        return move;
     }
 }
