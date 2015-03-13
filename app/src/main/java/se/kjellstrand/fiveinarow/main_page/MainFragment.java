@@ -3,7 +3,9 @@ package se.kjellstrand.fiveinarow.main_page;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import se.kjellstrand.fiveinarow.game_page.GameActivity;
  */
 public class MainFragment extends Fragment {
 
+    private static final String TAG = MainFragment.class.getSimpleName();
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -63,31 +66,53 @@ public class MainFragment extends Fragment {
             }
         });
 
-        ((Button) view.findViewById(R.id.test_check_speed_button)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testSpeedOfGetState();
-            }
-
-        });
+//        ((Button) view.findViewById(R.id.test_check_speed_button)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                testSpeedOfGetState();
+//            }
+//
+//        });
 
         return view;
     }
 
-    private void testSpeedOfGetState() {
-
-        AbstractPlayer p1 = new RandomPlayer(2);
-        AbstractPlayer p2 = new RandomPlayer(2);
-        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(15, 15, p1, p2);
-        for(int i=0;i<500;i++){
-            Move m = p1.getNextMove(fiveInARowGameBoard);
-            fiveInARowGameBoard.makeMove(m,p1);
-            m = p2.getNextMove(fiveInARowGameBoard);
-            fiveInARowGameBoard.makeMove(m,p2);
-        }
-        fiveInARowGameBoard.print();
-
-    }
+//    private void testSpeedOfGetState() {
+//
+//        AbstractPlayer p1 = new RandomPlayer(1);
+//        AbstractPlayer p2 = new RandomPlayer(2);
+//        FiveInARowBoard fiveInARowGameBoard = new FiveInARowBoard(15, 15, p1, p2);
+//        for (int i = 0; i < 15 * 2 ; i++) {
+//            Move m = p1.getNextMove(fiveInARowGameBoard);
+//            fiveInARowGameBoard.makeMove(m, p1);
+//            m = p2.getNextMove(fiveInARowGameBoard);
+//            fiveInARowGameBoard.makeMove(m, p2);
+//        }
+//        fiveInARowGameBoard.print();
+//
+//        long t1 = SystemClock.uptimeMillis();
+//        for (int i = 0; i < 10000; i++) {
+//            for (int y = 0; y < 15; y++) {
+//                for (int x = 0; x < 15; x++) {
+//                    fiveInARowGameBoard.getState(new Move(x, y));
+//                }
+//            }
+//        }
+//
+//        long t2 = SystemClock.uptimeMillis();
+//        for (int i = 0; i < 10000; i++) {
+//            for (int y = 0; y < 15; y++) {
+//                for (int x = 0; x < 15; x++) {
+//                    fiveInARowGameBoard.getState2(new Move(x, y));
+//                }
+//            }
+//        }
+//
+//        long t3 = SystemClock.uptimeMillis();
+//
+//        Log.d(TAG, "s1: "+(t2-t1)+" s2: "+(t3-t2));
+//
+//    }
 
     @Override
     public void onAttach(Activity activity) {

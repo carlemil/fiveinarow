@@ -40,7 +40,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         int draws = 0;
 
         //Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             FiveInARowBoard cloneBoard;
             Move move;
 

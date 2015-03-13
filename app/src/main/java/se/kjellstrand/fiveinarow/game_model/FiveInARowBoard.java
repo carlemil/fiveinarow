@@ -89,13 +89,7 @@ public class FiveInARowBoard {
             madeMoves++;
         }
         GameState state = getState(move);
-        GameState state2 = getState2(move);
 
-        if (state != state2) {
-            print();
-            Log.d(TAG, "move " + move);
-            throw new RuntimeException("state missmatch");
-        }
         if (state == GameState.UNDEFINED) {
             if (currentPlayer != p1) {
                 currentPlayer = p1;
@@ -111,33 +105,33 @@ public class FiveInARowBoard {
         return board[x][y];
     }
 
+//    public GameState getState(Move m) {
+//        // Check only around the new move
+//        int p = board[m.x][m.y];
+//        int cx = 0;
+//        int cy = 0;
+//        int cxy = 0;
+//        int cyx = 0;
+//        for (int i = -4; i <= 4; i++) {
+//            cx = (m.x + i >= 0 && m.x + i < width &&
+//                    p == board[m.x + i][m.y]) ? (cx + 1) : 0;
+//            cy = (m.y + i >= 0 && m.y + i < height &&
+//                    p == board[m.x][m.y + i]) ? (cy + 1) : 0;
+//            cxy = (m.x + i >= 0 && m.x + i < width &&
+//                    m.y + i >= 0 && m.y + i < height &&
+//                    p == board[m.x + i][m.y + i]) ? (cxy + 1) : 0;
+//            cyx = (m.x - i >= 0 && m.x - i < width &&
+//                    m.y + i >= 0 && m.y + i < height &&
+//                    p == board[m.x - i][m.y + i]) ? (cyx + 1) : 0;
+//            if (cx >= 5 || cy >= 5 || cxy >= 5 || cyx >= 5) {
+//                return GameState.WIN;
+//            }
+//        }
+//        return GameState.UNDEFINED;
+//    }
+
+
     public GameState getState(Move m) {
-        // Check only around the new move
-        int p = board[m.x][m.y];
-        int cx = 0;
-        int cy = 0;
-        int cxy = 0;
-        int cyx = 0;
-        for (int i = -4; i <= 4; i++) {
-            cx = (m.x + i >= 0 && m.x + i < width &&
-                    p == board[m.x + i][m.y]) ? (cx + 1) : 0;
-            cy = (m.y + i >= 0 && m.y + i < height &&
-                    p == board[m.x][m.y + i]) ? (cy + 1) : 0;
-            cxy = (m.x + i >= 0 && m.x + i < width &&
-                    m.y + i >= 0 && m.y + i < height &&
-                    p == board[m.x + i][m.y + i]) ? (cxy + 1) : 0;
-            cyx = (m.x - i >= 0 && m.x - i < width &&
-                    m.y + i >= 0 && m.y + i < height &&
-                    p == board[m.x - i][m.y + i]) ? (cyx + 1) : 0;
-            if (cx >= 5 || cy >= 5 || cxy >= 5 || cyx >= 5) {
-                return GameState.WIN;
-            }
-        }
-        return GameState.UNDEFINED;
-    }
-
-
-    public GameState getState2(Move m) {
         // Check only around the new move
         int p = board[m.x][m.y];
         // Check left-right
