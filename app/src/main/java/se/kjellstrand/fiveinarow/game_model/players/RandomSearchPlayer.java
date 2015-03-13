@@ -31,19 +31,18 @@ public class RandomSearchPlayer extends AbstractPlayer {
         AbstractPlayer rp1 = new RandomPlayer(board.getP1().getPlayerNumber());
         AbstractPlayer rp2 = new RandomPlayer(board.getP2().getPlayerNumber());
 
-//        Log.d(TAG, ".\n.\n.\n----board-----");
-//        board.print();
+        Log.d(TAG, ".\n.\n.\n----board-----");
+        board.print();
 
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
         AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
 
         int draws = 0;
 
-        //Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
-        FiveInARowBoard tmpBoard = new FiveInARowBoard(board, rp1, rp2);
+        Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
+        FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
         for (int i = 0; i < 10000; i++) {
-            TODO reseta tmpBoards int[][] till vad board är.
-            //tmpBoard.
+            board.init(tmpBoard);
             rp.getNextMove(tmpBoard, move);
             //Log.d(TAG, "move " + move);
 
@@ -55,13 +54,15 @@ public class RandomSearchPlayer extends AbstractPlayer {
             } else {
                 draws++;
             }
+            //Log.d(TAG, "draws " + draws);
         }
         board.print();
         printResultBoard(results);
         Move bestMove = getBestMove(board, results);
         Log.d(TAG, "best move: " + bestMove + " draws: " + draws);
 
-        move = bestMove;
+        move.x = bestMove.x;
+        move.y = bestMove.y;
     }
 
     private void intiResultBoard(int[][] results, FiveInARowBoard board) {
@@ -83,14 +84,10 @@ public class RandomSearchPlayer extends AbstractPlayer {
     }
 
     public AbstractPlayer playRandomGameOnBoard(AbstractPlayer currentPlayer, FiveInARowBoard cloneBoard) {
-        FiveInARow fir = null;
-        try {
-            fir = new FiveInARow(cloneBoard);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        FiveInARow fir = new FiveInARow(cloneBoard);
+        //Log.d(TAG, "new fir");
         AbstractPlayer winner = fir.playTheGame(null);
+        //Log.d(TAG, "played a game");
         return winner;
     }
 

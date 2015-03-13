@@ -32,38 +32,14 @@ public class FiveInARowBoard {
         currentPlayer = p1;
     }
 
-    public FiveInARowBoard(FiveInARowBoard b, AbstractPlayer _p1, AbstractPlayer _p2) {
-        width = b.getWidth();
-        height = b.getHeight();
-        b.getCopyOfBoard(board);
-        madeMoves = countMadeMoves();
-        p1 = _p1;
-        p2 = _p2;
-        if (b.getCurrentPlayer().equals(b.getP1())) {
-            currentPlayer = p1;
-        } else {
-            currentPlayer = p2;
-        }
-    }
-
-    private int countMadeMoves() {
-        int moves = 0;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (board[x][y] != 0) {
-                    moves++;
-                }
-            }
-        }
-        return moves;
-    }
-
-    public void getCopyOfBoard(int[][] b) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                b[x][y] = board[x][y];
-            }
-        }
+    public void init(FiveInARowBoard b) {
+        b.setWidth(width);
+        b.setHeight(height);
+        b.setBoard(board);
+        b.setMadeMoves(madeMoves);
+        //b.setP1(p1);
+        //b.setP2(p2);
+        b.setCurrentPlayer(currentPlayer);
     }
 
     public int getWidth() {
@@ -81,7 +57,6 @@ public class FiveInARowBoard {
                 Log.d(TAG, "\n---board---\n" + board.toString());
                 throw new RuntimeException("Can not play on a occupied square. move: " + move);
             }
-            //Log.d(TAG, "move: "+move);
             board[move.x][move.y] = player.getPlayerNumber();
             madeMoves++;
         }
@@ -94,13 +69,9 @@ public class FiveInARowBoard {
                 currentPlayer = p2;
             }
         }
-        //Log.d(TAG, "state: "+state);
         return state;
     }
 
-    public int getPlayerOnPosition(int x, int y) {
-        return board[x][y];
-    }
 
     public GameState getState(Move m) {
         // Check only around the new move
@@ -231,5 +202,41 @@ public class FiveInARowBoard {
 
     public int[][] getBoard() {
         return board;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setBoard(int[][] board) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                this.board[x][y] = board[x][y];
+            }
+        }
+    }
+
+    public void setMadeMoves(int madeMoves) {
+        this.madeMoves = madeMoves;
+    }
+
+    public int getMadeMoves() {
+        return madeMoves;
+    }
+
+    public void setP1(AbstractPlayer p1) {
+        this.p1 = p1;
+    }
+
+    public void setP2(AbstractPlayer p2) {
+        this.p2 = p2;
+    }
+
+    public void setCurrentPlayer(AbstractPlayer currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }
