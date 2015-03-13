@@ -40,18 +40,16 @@ public class RandomSearchPlayer extends AbstractPlayer {
         int draws = 0;
 
         //Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
+        FiveInARowBoard tmpBoard = new FiveInARowBoard(board, rp1, rp2);
         for (int i = 0; i < 10000; i++) {
-            FiveInARowBoard cloneBoard;
-            //Move move;
-
-            cloneBoard = new FiveInARowBoard(board, rp1, rp2);
-
-            rp.getNextMove(cloneBoard, move);
+            TODO reseta tmpBoards int[][] till vad board är.
+            //tmpBoard.
+            rp.getNextMove(tmpBoard, move);
             //Log.d(TAG, "move " + move);
 
-            cloneBoard.makeMove(move, currentPlayer);
+            tmpBoard.makeMove(move, currentPlayer);
             //printResultBoard(results);
-            AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, cloneBoard);
+            AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, tmpBoard);
             if (winner != null) {
                 updateResultBoard(results, currentPlayer, move, winner);
             } else {

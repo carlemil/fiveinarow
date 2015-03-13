@@ -29,7 +29,7 @@ public class FiveInARow {
         while (state == GameState.UNDEFINED) {
             state = advanceGame();
             if (boardView != null) {
-                boardView.redraw(getBoardCopy());
+                boardView.redraw(b.getBoard());
                 Log.d(TAG, "playing the game");
                 //SystemClock.sleep(100);
             }
@@ -65,7 +65,7 @@ public class FiveInARow {
         return state;
     }
 
-    public int[][] getBoardCopy() {
-        return b.getCopyOfBoard();
+    public void getBoardCopy(int[][] board) {
+        b.getCopyOfBoard(board);
     }
 }

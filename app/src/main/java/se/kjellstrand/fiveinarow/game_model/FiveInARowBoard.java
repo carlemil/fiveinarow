@@ -35,7 +35,7 @@ public class FiveInARowBoard {
     public FiveInARowBoard(FiveInARowBoard b, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = b.getWidth();
         height = b.getHeight();
-        board = b.getCopyOfBoard();
+        b.getCopyOfBoard(board);
         madeMoves = countMadeMoves();
         p1 = _p1;
         p2 = _p2;
@@ -58,14 +58,12 @@ public class FiveInARowBoard {
         return moves;
     }
 
-    public int[][] getCopyOfBoard() {
-        int[][] b = new int[width][height];
+    public void getCopyOfBoard(int[][] b) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 b[x][y] = board[x][y];
             }
         }
-        return b;
     }
 
     public int getWidth() {
@@ -85,7 +83,6 @@ public class FiveInARowBoard {
             }
             //Log.d(TAG, "move: "+move);
             board[move.x][move.y] = player.getPlayerNumber();
-            //TODO
             madeMoves++;
         }
         GameState state = getState(move);
@@ -104,32 +101,6 @@ public class FiveInARowBoard {
     public int getPlayerOnPosition(int x, int y) {
         return board[x][y];
     }
-
-//    public GameState getState(Move m) {
-//        // Check only around the new move
-//        int p = board[m.x][m.y];
-//        int cx = 0;
-//        int cy = 0;
-//        int cxy = 0;
-//        int cyx = 0;
-//        for (int i = -4; i <= 4; i++) {
-//            cx = (m.x + i >= 0 && m.x + i < width &&
-//                    p == board[m.x + i][m.y]) ? (cx + 1) : 0;
-//            cy = (m.y + i >= 0 && m.y + i < height &&
-//                    p == board[m.x][m.y + i]) ? (cy + 1) : 0;
-//            cxy = (m.x + i >= 0 && m.x + i < width &&
-//                    m.y + i >= 0 && m.y + i < height &&
-//                    p == board[m.x + i][m.y + i]) ? (cxy + 1) : 0;
-//            cyx = (m.x - i >= 0 && m.x - i < width &&
-//                    m.y + i >= 0 && m.y + i < height &&
-//                    p == board[m.x - i][m.y + i]) ? (cyx + 1) : 0;
-//            if (cx >= 5 || cy >= 5 || cxy >= 5 || cyx >= 5) {
-//                return GameState.WIN;
-//            }
-//        }
-//        return GameState.UNDEFINED;
-//    }
-
 
     public GameState getState(Move m) {
         // Check only around the new move
@@ -255,7 +226,10 @@ public class FiveInARowBoard {
     }
 
     public boolean isBoardFull() {
-        //Log.d(TAG, "board fullnes: " + madeMoves + " height * width " + height * width);
         return madeMoves >= height * width;
+    }
+
+    public int[][] getBoard() {
+        return board;
     }
 }
