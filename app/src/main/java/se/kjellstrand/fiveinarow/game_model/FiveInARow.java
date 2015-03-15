@@ -12,7 +12,7 @@ public class FiveInARow {
 
     private static final String TAG = "FiveInARow";
 
-    private final FiveInARowBoard b;
+    private FiveInARowBoard b;
 
     private Move move = new Move();
 
@@ -66,6 +66,10 @@ public class FiveInARow {
         }
         //Log.d(TAG, "STATE: "+state);
         return state;
+    }
+
+    public void setBoard(FiveInARowBoard board) {
+        this.b = board;
     }
 
 //    public void getBoardCopy(int[][] board) {

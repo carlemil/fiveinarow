@@ -13,6 +13,8 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
     private static final String TAG = "RandomSearchPlayer";
 
+    private FiveInARow fir = null;
+
     public RandomSearchPlayer(int _playerNumber) {
         super(_playerNumber);
     }
@@ -32,7 +34,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         AbstractPlayer rp2 = new RandomPlayer(board.getP2().getPlayerNumber());
 
         Log.d(TAG, ".\n.\n.\n----board-----");
-        board.print();
+//        board.print();
 
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
         AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
@@ -41,7 +43,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
         Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
         FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             board.init(tmpBoard);
             rp.getNextMove(tmpBoard, move);
             //Log.d(TAG, "move " + move);
@@ -56,13 +58,11 @@ public class RandomSearchPlayer extends AbstractPlayer {
             }
             //Log.d(TAG, "draws " + draws);
         }
-        board.print();
-        printResultBoard(results);
-        Move bestMove = getBestMove(board, results);
-        Log.d(TAG, "best move: " + bestMove + " draws: " + draws);
+        //board.print();
+        //printResultBoard(results);
+        getBestMove(board, results, move);
+        Log.d(TAG, "best move: " + move + " draws: " + draws);
 
-        move.x = bestMove.x;
-        move.y = bestMove.y;
     }
 
     private void intiResultBoard(int[][] results, FiveInARowBoard board) {
@@ -84,26 +84,31 @@ public class RandomSearchPlayer extends AbstractPlayer {
     }
 
     public AbstractPlayer playRandomGameOnBoard(AbstractPlayer currentPlayer, FiveInARowBoard cloneBoard) {
-        FiveInARow fir = new FiveInARow(cloneBoard);
+        if (fir == null) {
+            fir = new FiveInARow(cloneBoard);
+        } else {
+            fir.setBoard(cloneBoard);
+        }
         //Log.d(TAG, "new fir");
         AbstractPlayer winner = fir.playTheGame(null);
         //Log.d(TAG, "played a game");
         return winner;
     }
 
-    public Move getBestMove(FiveInARowBoard board, int[][] results) {
-        Move bestMove = new Move(0, 0);
+    public Move getBestMove(FiveInARowBoard board, int[][] results, Move move) {
+        move.x = 0;
+        move.y = 0;
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
                 if (//board.isMoveLegal(x, y) &&
-                        results[bestMove.x][bestMove.y] < results[x][y]) {
-                    bestMove.x = x;
-                    bestMove.y = y;
-                    Log.d(TAG, "legal: " + x + ", " + y + " value " + results[bestMove.x][bestMove.y]);
+                        results[move.x][move.y] < results[x][y]) {
+                    move.x = x;
+                    move.y = y;
+                    Log.d(TAG, "legal: " + x + ", " + y + " value " + results[move.x][move.y]);
                 }
             }
         }
-        return bestMove;
+        return move;
     }
 
     public void printResultBoard(int[][] results) {
