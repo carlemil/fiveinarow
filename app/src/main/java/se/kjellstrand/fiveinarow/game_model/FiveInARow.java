@@ -1,6 +1,7 @@
 package se.kjellstrand.fiveinarow.game_model;
 
 import android.util.Log;
+import android.util.TimingLogger;
 
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
 import se.kjellstrand.fiveinarow.game_page.BoardView;
@@ -16,6 +17,8 @@ public class FiveInARow {
 
     private Move move = new Move();
 
+    TimingLogger timings = new TimingLogger(TAG, "methodA");
+
 
     public FiveInARow(FiveInARowBoard _b) {
         b = _b;
@@ -28,7 +31,10 @@ public class FiveInARow {
         GameState state = GameState.UNDEFINED;
         while (state == GameState.UNDEFINED) {
             //Log.d(TAG, "game loop");
+            timings.addSplit("work A");
             state = advanceGame();
+            timings.addSplit("work B");
+            timings.dumpToLog();
             if (boardView != null) {
                 boardView.redraw(b.getBoard());
                // Log.d(TAG, "playing the game");
@@ -55,6 +61,7 @@ public class FiveInARow {
             return GameState.DRAW;
         }
         //Log.d(TAG, "get next move, player: "+b.getCurrentPlayer().getName());
+
         b.getCurrentPlayer().getNextMove(b, move);
         //Log.d(TAG, "got next move");
         //Log.d(TAG, "MOVE: "+move);

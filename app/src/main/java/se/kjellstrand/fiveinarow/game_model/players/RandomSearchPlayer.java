@@ -43,7 +43,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
 
         Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
         FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             board.init(tmpBoard);
             rp.getNextMove(tmpBoard, move);
             //Log.d(TAG, "move " + move);
