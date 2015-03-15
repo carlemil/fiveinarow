@@ -19,6 +19,7 @@ public class RandomPlayer extends AbstractPlayer {
     @Override
     public void getNextMove(FiveInARowBoard board, Move move) {
         int x, y, c = 0;
+        // First try to get a random move the cheep way.
         while (c++ < board.getHeight()) {
             x = (int) (Math.random() * board.getWidth());
             y = (int) (Math.random() * board.getHeight());
@@ -29,7 +30,7 @@ public class RandomPlayer extends AbstractPlayer {
                 return;
             }
         }
-
+        // If that fails make sure to get a proper random move.
         double currentMaxRnd = 0f;
         for (y = 0; y < board.getWidth(); y++) {
             for (x = 0; x < board.getHeight(); x++) {
