@@ -18,13 +18,16 @@ public class RandomPlayer extends AbstractPlayer {
 
     @Override
     public void getNextMove(FiveInARowBoard board, Move move) {
-        int x = (int) (Math.random() * board.getWidth());
-        int y = (int) (Math.random() * board.getHeight());
+        int x, y, c = 0;
+        while (c++ < board.getHeight()) {
+            x = (int) (Math.random() * board.getWidth());
+            y = (int) (Math.random() * board.getHeight());
 
-        if (board.isMoveLegal(x, y)) {
-            move.x = x;
-            move.y = y;
-            return;
+            if (board.isMoveLegal(x, y)) {
+                move.x = x;
+                move.y = y;
+                return;
+            }
         }
 
         double currentMaxRnd = 0f;
