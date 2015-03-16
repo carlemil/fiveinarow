@@ -18,6 +18,9 @@ public class RandomPlayer extends AbstractPlayer {
 
     @Override
     public void getNextMove(FiveInARowBoard board, Move move) {
+
+        get list of valid moves from board, would speedup things alot.
+        
         int x, y, c = 0;
         // First try to get a random move the cheep way.
         while (c++ < board.getHeight()) {
