@@ -37,8 +37,6 @@ public class FiveInARowBoard {
         b.setHeight(height);
         b.setBoard(board);
         b.setMadeMoves(madeMoves);
-        //b.setP1(p1);
-        //b.setP2(p2);
         b.setCurrentPlayer(currentPlayer);
     }
 

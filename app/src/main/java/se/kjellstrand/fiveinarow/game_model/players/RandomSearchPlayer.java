@@ -33,33 +33,25 @@ public class RandomSearchPlayer extends AbstractPlayer {
         AbstractPlayer rp1 = new RandomPlayer(board.getP1().getPlayerNumber());
         AbstractPlayer rp2 = new RandomPlayer(board.getP2().getPlayerNumber());
 
-        Log.d(TAG, ".\n.\n.\n----board-----");
-//        board.print();
-
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
         AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
 
         int draws = 0;
 
-        Log.d(TAG, "+++current player " + currentPlayer.getPlayerNumber());
         FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
         for (int i = 0; i < 10000; i++) {
             board.init(tmpBoard);
             rp.getNextMove(tmpBoard, move);
-            //Log.d(TAG, "move " + move);
 
             tmpBoard.makeMove(move, currentPlayer);
-            //printResultBoard(results);
+
             AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, tmpBoard);
             if (winner != null) {
                 updateResultBoard(results, currentPlayer, move, winner);
             } else {
                 draws++;
             }
-            //Log.d(TAG, "draws " + draws);
         }
-        //board.print();
-        //printResultBoard(results);
         getBestMove(board, results, move);
         Log.d(TAG, "best move: " + move + " draws: " + draws);
 
@@ -89,9 +81,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         } else {
             fir.setBoard(cloneBoard);
         }
-        //Log.d(TAG, "new fir");
         AbstractPlayer winner = fir.playTheGame(null);
-        //Log.d(TAG, "played a game");
         return winner;
     }
 
@@ -100,11 +90,9 @@ public class RandomSearchPlayer extends AbstractPlayer {
         move.y = 0;
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
-                if (//board.isMoveLegal(x, y) &&
-                        results[move.x][move.y] < results[x][y]) {
+                if (results[move.x][move.y] < results[x][y]) {
                     move.x = x;
                     move.y = y;
-                    Log.d(TAG, "legal: " + x + ", " + y + " value " + results[move.x][move.y]);
                 }
             }
         }
