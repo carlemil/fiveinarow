@@ -41,8 +41,11 @@ public class RandomSearchPlayer extends AbstractPlayer {
         FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
         for (int i = 0; i < 10000; i++) {
             board.init(tmpBoard);
+            //Log.d(TAG, "run # "+i);
+            //tmpBoard.print();
+            //Log.d(TAG, "moves left: "+tmpBoard.getValidMoves().size());
             rp.getNextMove(tmpBoard, move);
-
+            //Log.d(TAG, "move :"+move);
             tmpBoard.makeMove(move, currentPlayer);
 
             AbstractPlayer winner = playRandomGameOnBoard(currentPlayer, tmpBoard);

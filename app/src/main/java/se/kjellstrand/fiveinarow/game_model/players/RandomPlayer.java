@@ -1,5 +1,7 @@
 package se.kjellstrand.fiveinarow.game_model.players;
 
+import java.util.ArrayList;
+
 import se.kjellstrand.fiveinarow.game_model.FiveInARowBoard;
 import se.kjellstrand.fiveinarow.game_model.Move;
 
@@ -19,9 +21,14 @@ public class RandomPlayer extends AbstractPlayer {
     @Override
     public void getNextMove(FiveInARowBoard board, Move move) {
 
-        get list of valid moves from board, would speedup things alot.
-        
-        int x, y, c = 0;
+        //get list of valid moves from board, would speedup things alot.
+
+        ArrayList<Move> vm = board.getValidMoves();
+        Move m = vm.get((int) (Math.random() * vm.size()));
+        move.x = m.x;
+        move.y = m.y;
+
+        /*int x, y, c = 0;
         // First try to get a random move the cheep way.
         while (c++ < board.getHeight()) {
             x = (int) (Math.random() * board.getWidth());
@@ -46,6 +53,6 @@ public class RandomPlayer extends AbstractPlayer {
                     }
                 }
             }
-        }
+        }*/
     }
 }

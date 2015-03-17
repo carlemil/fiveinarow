@@ -18,6 +18,26 @@ public class Move {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Move move = (Move) o;
+
+        if (x != move.x) return false;
+        if (y != move.y) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "x: " + x + ", y: " + y;
     }

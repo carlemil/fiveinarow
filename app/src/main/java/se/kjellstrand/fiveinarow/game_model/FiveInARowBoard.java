@@ -2,6 +2,8 @@ package se.kjellstrand.fiveinarow.game_model;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
 
 /**
@@ -20,13 +22,16 @@ public class FiveInARowBoard {
 
     private int[][] board = null;
 
-    private int madeMoves = 0;
+    //private int madeMoves = 0;
+
+    private ArrayList<Move> validMoves= new ArrayList<Move>();
 
     public FiveInARowBoard(int _width, int _height, AbstractPlayer _p1, AbstractPlayer _p2) {
         width = _width;
         height = _height;
         board = new int[width][height];
-        madeMoves = 0;
+        //madeMoves = 0;
+        setValidMoves();
         p1 = _p1;
         p2 = _p2;
         currentPlayer = p1;
@@ -36,8 +41,30 @@ public class FiveInARowBoard {
         b.setWidth(width);
         b.setHeight(height);
         b.setBoard(board);
-        b.setMadeMoves(madeMoves);
+        //b.setMadeMoves(madeMoves);
+        b.setValidMoves();
         b.setCurrentPlayer(currentPlayer);
+    }
+
+//    private void setValidMoves(ArrayList<Move> _validMoves) {
+//        _validMoves.clear();
+//        StringBuffer sb = new StringBuffer();
+//        for(Move m: validMoves){
+//            _validMoves.add(m);
+//            sb.append(" - "+m);
+//        }
+//        Log.d(TAG, sb.toString());
+//    }
+
+    private void setValidMoves() {
+        validMoves.clear();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (board != null && board[x][y] == 0) {
+                    validMoves.add(new Move(x, y));
+                }
+            }
+        }
     }
 
     public int getWidth() {
@@ -56,7 +83,8 @@ public class FiveInARowBoard {
                 throw new RuntimeException("Can not play on a occupied square. move: " + move);
             }
             board[move.x][move.y] = player.getPlayerNumber();
-            madeMoves++;
+            //madeMoves++;
+            validMoves.remove(move);
         }
         GameState state = getState(move);
 
@@ -195,7 +223,7 @@ public class FiveInARowBoard {
     }
 
     public boolean isBoardFull() {
-        return madeMoves >= height * width;
+        return validMoves.isEmpty();
     }
 
     public int[][] getBoard() {
@@ -218,23 +246,27 @@ public class FiveInARowBoard {
         }
     }
 
-    public void setMadeMoves(int madeMoves) {
-        this.madeMoves = madeMoves;
-    }
+//    public void setMadeMoves(int madeMoves) {
+//        this.madeMoves = madeMoves;
+//    }
+//
+//    public int getMadeMoves() {
+//        return madeMoves;
+//    }
 
-    public int getMadeMoves() {
-        return madeMoves;
-    }
-
-    public void setP1(AbstractPlayer p1) {
-        this.p1 = p1;
-    }
-
-    public void setP2(AbstractPlayer p2) {
-        this.p2 = p2;
-    }
+//    public void setP1(AbstractPlayer p1) {
+//        this.p1 = p1;
+//    }
+//
+//    public void setP2(AbstractPlayer p2) {
+//        this.p2 = p2;
+//    }
 
     public void setCurrentPlayer(AbstractPlayer currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public ArrayList<Move> getValidMoves() {
+        return validMoves;
     }
 }
