@@ -246,22 +246,6 @@ public class FiveInARowBoard {
         }
     }
 
-//    public void setMadeMoves(int madeMoves) {
-//        this.madeMoves = madeMoves;
-//    }
-//
-//    public int getMadeMoves() {
-//        return madeMoves;
-//    }
-
-//    public void setP1(AbstractPlayer p1) {
-//        this.p1 = p1;
-//    }
-//
-//    public void setP2(AbstractPlayer p2) {
-//        this.p2 = p2;
-//    }
-
     public void setCurrentPlayer(AbstractPlayer currentPlayer) {
         this.currentPlayer = currentPlayer;
     }

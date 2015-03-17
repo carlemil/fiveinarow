@@ -1,9 +1,9 @@
 package se.kjellstrand.fiveinarow.game_model;
 
 import android.util.Log;
-import android.util.TimingLogger;
 
 import se.kjellstrand.fiveinarow.game_model.players.AbstractPlayer;
+import se.kjellstrand.fiveinarow.game_model.players.RandomSearchPlayer;
 import se.kjellstrand.fiveinarow.game_page.BoardView;
 
 /**
@@ -28,6 +28,9 @@ public class FiveInARow {
         GameState state = GameState.UNDEFINED;
         while (state == GameState.UNDEFINED) {
             state = advanceGame();
+            if(b.getCurrentPlayer()instanceof RandomSearchPlayer){
+                Log.d(TAG, "advanced game one step, state: "+state);
+            }
             if (boardView != null) {
                 boardView.redraw(b.getBoard());
             }
@@ -50,9 +53,14 @@ public class FiveInARow {
         if (b.isBoardFull()) {
             return GameState.DRAW;
         }
-
+        if(b.getCurrentPlayer()instanceof RandomSearchPlayer){
+            Log.d(TAG, "advanceGame1 "+this);
+        }
         b.getCurrentPlayer().getNextMove(b, move);
 
+        if(b.getCurrentPlayer()instanceof RandomSearchPlayer){
+            Log.d(TAG, "advanceGame2");
+        }
         boolean moveLegal = b.isMoveLegal(move);
         if (moveLegal) {
             state = b.makeMove(move, b.getCurrentPlayer());

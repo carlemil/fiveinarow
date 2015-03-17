@@ -37,12 +37,12 @@ public class RandomSearchPlayer extends AbstractPlayer {
         AbstractPlayer rp = new RandomPlayer(currentPlayer.getPlayerNumber());
 
         int draws = 0;
-
+        int moves = 0;
         FiveInARowBoard tmpBoard = new FiveInARowBoard(board.getWidth(), board.getHeight(), rp1, rp2);
         for (int i = 0; i < 10000; i++) {
             board.init(tmpBoard);
             //Log.d(TAG, "run # "+i);
-            //tmpBoard.print();
+
             //Log.d(TAG, "moves left: "+tmpBoard.getValidMoves().size());
             rp.getNextMove(tmpBoard, move);
             //Log.d(TAG, "move :"+move);
@@ -54,9 +54,10 @@ public class RandomSearchPlayer extends AbstractPlayer {
             } else {
                 draws++;
             }
+            moves++;
         }
         getBestMove(board, results, move);
-        Log.d(TAG, "best move: " + move + " draws: " + draws);
+        Log.d(TAG, "best move: " + move + " draws: " + draws+"/"+moves);
 
     }
 
@@ -78,6 +79,7 @@ public class RandomSearchPlayer extends AbstractPlayer {
         }
     }
 
+    // TODO remove current player after verrifying its not needed.
     public AbstractPlayer playRandomGameOnBoard(AbstractPlayer currentPlayer, FiveInARowBoard cloneBoard) {
         if (fir == null) {
             fir = new FiveInARow(cloneBoard);
